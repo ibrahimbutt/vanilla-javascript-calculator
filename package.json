@@ -1,0 +1,14 @@
+{
+  "name": "vanila-javascript-calculator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/IbrahimButt/Vanilla-JavaScript-Calculator.git",
+  "author": "Ibrahim Butt <ibrahimbutt1993@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^5.0.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
