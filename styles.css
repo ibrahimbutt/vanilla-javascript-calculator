@@ -18,7 +18,7 @@ body {
 
 .calculator {
   height: 425px;
-  width: 240px;
+  max-width: 240px;
   display: grid;
   grid-template-rows: 135px 290px;
   position: relative;
@@ -35,15 +35,18 @@ body {
 }
 
 .calculator__top {
-  background-color: #38BA6C;
+  background-color: #ffffff;
+  border-top-width: 3px;
   padding: 40px;
   text-align: right;
+  transition: background-color .25s ;
 }
 .calculator__bottom {
   background-color: #242433;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  -moz-text-size-adjust: 50%;
 }
 
 button {
@@ -68,7 +71,7 @@ button:active {
 .history {
   font-size: 12px;
   line-height: 12px;
-  color: #FFFFFF;
+  color: black;
   opacity: .35;
   margin-bottom: 10px;
   height: 12px;
@@ -77,5 +80,4 @@ button:active {
   font-size: 36px;
   line-height: 36px;
   opacity: .85;
-  
 }

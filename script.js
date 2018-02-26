@@ -1,12 +1,17 @@
 const calculator = {
   history: document.getElementById('history'),
   input: document.getElementById('input'),
+  calculatorTop: document.getElementById('calculator__top'),
   calculatorBottom: document.getElementById('calculator__bottom')
 };
 
 const handlers = {
   wasOperatorPressed: function () {
     return !calculator.history.innerText.match(/\d$/);
+  },
+  percentagePressed: function () {
+    // Get last digits pressed
+
   }
 }
 
@@ -18,6 +23,12 @@ const view = {
     }
   },
   operatorPressed: function (character, destOne, destTwo) {
+
+    // Avoid error in console
+    if (calculator.history.innerText === '') {
+      return false;
+    }
+
     this.calculateTotal();
     this.addCharacterToDestination(character, destOne, destTwo);
   },
@@ -34,8 +45,9 @@ const view = {
     let evalString = calculator.history.innerText;
     evalString = evalString.replace(/÷/g, '/');
     evalString = evalString.replace(/×/g, '*');
-    evalString = evalString.replace(/×/g, '*');
-    input.innerText = eval(evalString).toFixed(0);
+    evalString = evalString.replace(/−/g, '-');
+    calculator.input.innerText = eval(evalString).toFixed(0);
+    // calculator.input.innerText >= 0 ? calculator.calculatorTop.style.backgroundColor = '#38BA6C' : calculator.calculatorTop.style.backgroundColor = '#F74B56';
   },
   clearAll: () => {
     calculator.history.innerText = '';
@@ -46,7 +58,7 @@ const view = {
 calculator.calculatorBottom.addEventListener('click', (e) => {
   const character = e.target.innerText;
 
-  if (Number(character)) {
+  if (Number(character) >= 0) {
     view.digitPressed(character, calculator.input, calculator.history);
   }
   else if (character != 'C' && character != '=') {
@@ -58,16 +70,19 @@ calculator.calculatorBottom.addEventListener('click', (e) => {
     view.calculateTotal();
   } else if (character === 'C') {
     view.clearAll();
-  } else if (character === '=') {
-    view.calculateTotal();
-  }
+  } 
 });
 
 
 // Cases
 
+// Done
 // 01. Should add digits to input, rejecr everything else.
 // 02. Should add digits and operators to history, reject everything else.
 // 03. Should remove leading 0 after first digit input.
-// 04. Should show current total when operator pressed.
+// 04. Should show running total when operator pressed.
 // 05. Should show total when equal pressed.
+
+// ToDo
+// Should reject adding multiple leading zeros to history
+// Should show percent as decimal in history.
