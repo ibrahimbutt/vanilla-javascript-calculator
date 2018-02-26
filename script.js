@@ -39,15 +39,16 @@ const view = {
     if (handlers.wasOperatorPressed()) {
       calculator.input.innerText = '';
     }
-    this.addCharacterToDestination(character, destOne, destTwo)
+    this.addCharacterToDestination(character, destOne, destTwo);
+    const commasRemoved = calculator.input.innerText.replace(/,/gi, '');
+    calculator.input.innerText = Number(commasRemoved).toLocaleString();
   },
   calculateTotal: () => {
     let evalString = calculator.history.innerText;
     evalString = evalString.replace(/÷/g, '/');
     evalString = evalString.replace(/×/g, '*');
     evalString = evalString.replace(/−/g, '-');
-    calculator.input.innerText = eval(evalString).toFixed(0);
-    // calculator.input.innerText >= 0 ? calculator.calculatorTop.style.backgroundColor = '#38BA6C' : calculator.calculatorTop.style.backgroundColor = '#F74B56';
+    calculator.input.innerText = eval(evalString);
   },
   clearAll: () => {
     calculator.history.innerText = '';
@@ -82,6 +83,7 @@ calculator.calculatorBottom.addEventListener('click', (e) => {
 // 03. Should remove leading 0 after first digit input.
 // 04. Should show running total when operator pressed.
 // 05. Should show total when equal pressed.
+// 06. Should add commas correctly
 
 // ToDo
 // Should reject adding multiple leading zeros to history
