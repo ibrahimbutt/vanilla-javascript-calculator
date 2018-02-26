@@ -1,105 +1,66 @@
-const calculator = {
-  history: '',
-  input: '',
+let inputDiv = document.getElementById('input');
+let historyDiv = document.getElementById('history');
+
+const view = {
   total: '',
-  add: function () {
-    return this.total = Number(this.total) + Number(this.input);
-  },
-  subtract: function () {
-    return this.total = Number(this.total) - Number(this.input);
-  },
-  divide: function () {
-    return this.total = Number(this.total) / Number(this.input);
-  },
-  multiply: function () {
-    return this.total = Number(this.total) * Number(this.input);
-  },
-  equal: function () {
-    return this.total;
-  },
-  wasOperatorPressedLast: function () {
-    return !calculator.history.match(/\d$/);
-  },
-  addToInput: function (value) {
-    if (inputDiv.innerText === '0' && (value === '0' || value === '00')) {
-      return false;
-    } else if (inputDiv.innerText === '0') {
-      inputDiv.innerText = '';
-    }
-    this.input += value;
-    this.addToUserInputDisplay(value);
-  },
-  addToUserInputDisplay: function (value) {
+  addUserInputToInput(value) {
     inputDiv.innerText += value;
-
-    inputDiv.innerText = Number(inputDiv.innerText.replace(/,/gi, '')).toLocaleString()
-    
+    inputDiv.innerText = Number(inputDiv.innerText.replace(/,/gi, '')).toLocaleString();
   },
-  addToHistory: function (value) {
+  addUserInputToHistory(value) {
 
-
-    if (historyDiv.innerText === '' && (value === '0' || utility.operatorsList.includes(value))) {
-      return true;
+    // Get last input string from history
+    // Remove commas
+    // Apply new value
+    // Reapply commas
+    // Add to history
+    if (!!historyDiv.innerText.match(/[+×-÷]/g)) {
+      let lastInput = historyDiv.innerText.match(/(\d*,)*\d*$/)[0];
+      lastInput = lastInput.replace(/,/gi, '');
+      lastInput += value;
+      lastInput = Number(lastInput).toLocaleString();
+      historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, String(lastInput));
+    } else {
+      historyDiv.innerText += value;
+      historyDiv.innerText = Number(historyDiv.innerText.replace(/,/gi, '')).toLocaleString();
     }
-
-    if (this.wasOperatorPressedLast() && !Number(value)) {
-      this.history = calculator.history.slice(0, -1);
-      historyDiv.innerText = this.history;
-    }
-
-    this.history += value;
-    this.addToUserHistoryDisplay(value);
-
   },
-  addToUserHistoryDisplay: function (value) {
-    historyDiv.innerText += value;
-  },
-  clearAll: function () {
-    this.input = '';
-    this.history = '';
+  clearAll() {
     inputDiv.innerText = '0';
     historyDiv.innerText = '';
-  }
+  },
 };
 
 const utility = {
-  operatorsList: ['÷', '×', '−', '+']
-}
+  // wasOperatorPressedLast () {
+  //   // return !calculator.history.match(/\d$/);
+  // }
+  digitPressHandler(value) {
+    // Is the input 0, as well as the value?
+    // Then state is clean, so reject to avoid leading zeros.
+    if (inputDiv.innerText === '0' && (value === '0' || value === '00')) {
+      return false;
+    }
 
-// exports.total = calculator.total;
-
-// exports.input = calculator.input;
-// exports.addToInput = calculator.addToInput;
-
-// exports.history = calculator.history;
-// exports.addToHistory = calculator.addToHistory;
-
-// exports.add = calculator.add;
-// exports.subtract = calculator.subtract;
-// exports.divide = calculator.divide;
-// exports.multiply = calculator.multiply;
-// exports.equal = calculator.equal;
-
-const inputDiv = document.getElementById('input');
-const historyDiv = document.getElementById('history');
-
-document.getElementById('calculator__bottom').addEventListener('click', function (e) {
-  const value = e.target.innerText;
-  if (Number(value) >= 0) {
-    calculator.addToInput(value);
-    calculator.addToHistory(value);
-    console.clear();
-    console.log('History: ' + calculator.history, 'Input: ' + calculator.input);
+    // Is there a leading zero?
+    // If there is, remove it.
+    if (inputDiv.innerText === '0' || inputDiv.innerText === '00') {
+      inputDiv.innerText = '';
+    }
+    view.addUserInputToInput(value);
+    view.addUserInputToHistory(value);
     return true;
-  } else if (calculator.hasOwnProperty(e.target.value) && value != 'C') {
-    calculator.addToHistory(value);
-    // calculator.equal();
+  },
+};
+
+document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+  const value = e.target.innerText;
+  if (Number(value) || value === '0' || value === '00') {
+    utility.digitPressHandler(value);
   } else if (value === 'C') {
-    calculator.clearAll();
+    view.clearAll();
   }
+});
 
-
-})
-
-
-// !calculator.history.match(/\d$/);
+// inputDiv.innerText += value;
+//     inputDiv.innerText = Number(inputDiv.innerText.replace(/,/gi, '')).toLocaleString();
