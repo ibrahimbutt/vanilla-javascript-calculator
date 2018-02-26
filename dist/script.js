@@ -7,7 +7,22 @@ const view = {
     inputDiv.innerText = numeral(input.innerText + value).format('0,0');
   },
   addUserInputToHistory(value) {
-    historyDiv.innerText += value;
+    if (Number(value)) {
+      // Get last input string
+      let historyAfterLastOperator = historyDiv.innerText.match(/(\d*,)*\d*$/)[0];
+      // Remove commas
+      historyAfterLastOperator = historyAfterLastOperator.replace(/,/g, '');
+      // Append new value
+      historyAfterLastOperator += value;
+      // Apply commas
+      historyAfterLastOperator = numeral(Number(historyAfterLastOperator)).format('0,0');
+      // Remove original input string
+      historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, historyAfterLastOperator);
+      
+    } else {
+      historyDiv.innerText += value;
+      inputDiv.innerText = '0';
+    }
   },
   clearAll() {
     inputDiv.innerText = '0';
