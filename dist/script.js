@@ -1,92 +1,57 @@
+const inputDiv = document.getElementById('input');
+
 const calculator = {
-  history: document.getElementById('history'),
-  input: document.getElementById('input'),
-  calculatorTop: document.getElementById('calculator__top'),
-  calculatorBottom: document.getElementById('calculator__bottom')
-};
-
-const handlers = {
-  wasOperatorPressed: function () {
-    return !calculator.history.innerText.match(/\d$/);
+  history: '',
+  input: '',
+  total: '',
+  add: function () {
+    return this.total = Number(this.total) + Number(this.input);
   },
-  percentagePressed: function () {
-    // Get last digits pressed
-
-  }
-}
-
-const view = {
-  addCharacterToDestination: (character, destOne, destTwo) => {
-    destOne.innerText += character;
-    if (destTwo) {
-      destTwo.innerText += character;
+  subtract: function () {
+    return this.total = Number(this.total) - Number(this.input);
+  },
+  divide: function () {
+    return this.total = Number(this.total) / Number(this.input);
+  },
+  multiply: function () {
+    return this.total = Number(this.total) * Number(this.input);
+  },
+  equal: function () {
+    return this.total;
+  },
+  addToInput: function(value) {
+    this.input += value;
+    this.addToUserInputDisplay(value);
+  },
+  addToHistory: function(value) {
+    this.history += value;
+  },
+  addToUserInputDisplay: function(value) {
+    if (inputDiv.innerText === '0') {
+      inputDiv.innerText = '';
     }
-  },
-  operatorPressed: function (character, destOne, destTwo) {
-
-    // Avoid error in console
-    if (calculator.history.innerText === '') {
-      return false;
-    }
-
-    this.calculateTotal();
-    this.addCharacterToDestination(character, destOne, destTwo);
-  },
-  digitPressed: function (character, destOne, destTwo) {
-    if (destOne.innerText === '0') {
-      destOne.innerText = '';
-    }
-    if (handlers.wasOperatorPressed()) {
-      calculator.input.innerText = '';
-    }
-    this.addCharacterToDestination(character, destOne, destTwo);
-    const commasRemoved = calculator.input.innerText.replace(/,/gi, '');
-    calculator.input.innerText = Number(commasRemoved).toLocaleString();
-  },
-  calculateTotal: () => {
-    let evalString = calculator.history.innerText;
-    evalString = evalString.replace(/÷/g, '/');
-    evalString = evalString.replace(/×/g, '*');
-    evalString = evalString.replace(/−/g, '-');
-    calculator.input.innerText = eval(evalString).toLocaleString();
-  },
-  clearAll: () => {
-    calculator.history.innerText = '';
-    calculator.input.innerText = '0';
+    inputDiv.innerText += value;
   }
 };
 
-calculator.calculatorBottom.addEventListener('click', (e) => {
-  const character = e.target.innerText;
-
-  if (Number(character) >= 0) {
-    view.digitPressed(character, calculator.input, calculator.history);
+document.getElementById('calculator__bottom').addEventListener('click', function(e) {
+  const value = e.target.innerText;
+  if (Number(value) >= 0) {
+    calculator.addToInput(value);
+    // calculator.addToUserInputDisplay(value);
   }
-  else if (character != 'C' && character != '=') {
-    if (handlers.wasOperatorPressed()) {
-      calculator.history.innerText = calculator.history.innerText.slice(0, -1);
-    }
-    view.operatorPressed(character, calculator.history);
-  } else if (character === '=') {
-    view.calculateTotal();
-  } else if (character === 'C') {
-    view.clearAll();
-  } 
-});
+})
 
+exports.total = calculator.total;
 
-// Cases
+exports.input = calculator.input;
+exports.addToInput = calculator.addToInput;
 
-// Done
-// 01. Should add digits to input, rejecr everything else.
-// 02. Should add digits and operators to history, reject everything else.
-// 03. Should remove leading 0 after first digit input.
-// 04. Should show running total when operator pressed.
-// 05. Should show total when equal pressed.
-// 06. Should add commas correctly
+exports.history = calculator.history;
+exports.addToHistory = calculator.addToHistory;
 
-// ToDo
-// Should reset input if clear pressed once
-// Should reset calculator if clear pressed twice
-// Should reject adding multiple leading zeros to history
-// Should show percent as decimal in history.
+exports.add = calculator.add;
+exports.subtract = calculator.subtract;
+exports.divide = calculator.divide;
+exports.multiply = calculator.multiply;
+exports.equal = calculator.equal;
