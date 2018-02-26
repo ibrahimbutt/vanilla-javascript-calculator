@@ -42,7 +42,7 @@ body {
   transition: background-color .25s ;
 }
 .calculator__bottom {
-  background-color: #242433;
+  background-color: #0D3A58;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -71,8 +71,8 @@ button:active {
 .history {
   font-size: 12px;
   line-height: 12px;
-  color: black;
-  opacity: .35;
+  color:  #ffc600;
+  /* opacity: .35; */
   margin-bottom: 10px;
   height: 12px;
 }

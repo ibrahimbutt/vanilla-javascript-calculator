@@ -48,7 +48,7 @@ const view = {
     evalString = evalString.replace(/÷/g, '/');
     evalString = evalString.replace(/×/g, '*');
     evalString = evalString.replace(/−/g, '-');
-    calculator.input.innerText = eval(evalString);
+    calculator.input.innerText = eval(evalString).toLocaleString();
   },
   clearAll: () => {
     calculator.history.innerText = '';
@@ -86,5 +86,7 @@ calculator.calculatorBottom.addEventListener('click', (e) => {
 // 06. Should add commas correctly
 
 // ToDo
+// Should reset input if clear pressed once
+// Should reset calculator if clear pressed twice
 // Should reject adding multiple leading zeros to history
 // Should show percent as decimal in history.
