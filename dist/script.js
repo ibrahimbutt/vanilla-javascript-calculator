@@ -18,7 +18,9 @@ const view = {
       historyAfterLastOperator = numeral(Number(historyAfterLastOperator)).format('0,0');
       // Remove original input string
       historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, historyAfterLastOperator);
-      
+    } else if (utility.wasOperatorPressedLast()) {
+      historyDiv.innerText = historyDiv.innerText.slice(0, -1);
+      historyDiv.innerText += value;      
     } else {
       historyDiv.innerText += value;
       inputDiv.innerText = '0';
