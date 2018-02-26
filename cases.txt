@@ -1,0 +1,18 @@
+// Cases
+
+// Done
+// Should add digits to input, rejecr everything else.
+// Should remove leading 0 after first digit input.
+// Should clear everything
+// Should reject adding multiple leading zeros to history
+// Should reject adding leading operators
+// Should add digits and operators to history, reject everything else.
+// Should remove last operator, if another one pressed straight after, then add new one
+
+// In Progress
+// Should add commas correctly
+
+// ToDo
+// Should show running total when operator pressed.
+// Should show total when equal pressed.
+// Should show percent as decimal in history.

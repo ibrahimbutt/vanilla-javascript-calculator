@@ -17,8 +17,11 @@ const calculator = {
   equal: function () {
     return this.total;
   },
-  addToInput: function(value) {
-    if (inputDiv.innerText === '0' && value === '0') {
+  wasOperatorPressedLast: function () {
+    return !calculator.history.match(/\d$/);
+  },
+  addToInput: function (value) {
+    if (inputDiv.innerText === '0' && (value === '0' || value === '00')) {
       return false;
     } else if (inputDiv.innerText === '0') {
       inputDiv.innerText = '';
@@ -26,17 +29,29 @@ const calculator = {
     this.input += value;
     this.addToUserInputDisplay(value);
   },
-  addToUserInputDisplay: function(value) {
+  addToUserInputDisplay: function (value) {
     inputDiv.innerText += value;
+
+    inputDiv.innerText = Number(inputDiv.innerText.replace(/,/gi, '')).toLocaleString()
+    
   },
-  addToHistory: function(value) {
-    if (historyDiv.innerText === '' && value === '0') {
-      return false;
-    } 
+  addToHistory: function (value) {
+
+
+    if (historyDiv.innerText === '' && (value === '0' || utility.operatorsList.includes(value))) {
+      return true;
+    }
+
+    if (this.wasOperatorPressedLast() && !Number(value)) {
+      this.history = calculator.history.slice(0, -1);
+      historyDiv.innerText = this.history;
+    }
+
     this.history += value;
     this.addToUserHistoryDisplay(value);
+
   },
-  addToUserHistoryDisplay: function(value) {
+  addToUserHistoryDisplay: function (value) {
     historyDiv.innerText += value;
   },
   clearAll: function () {
@@ -47,6 +62,9 @@ const calculator = {
   }
 };
 
+const utility = {
+  operatorsList: ['÷', '×', '−', '+']
+}
 
 // exports.total = calculator.total;
 
@@ -62,38 +80,26 @@ const calculator = {
 // exports.multiply = calculator.multiply;
 // exports.equal = calculator.equal;
 
-
-// Cases
-
-// Done
-// Should add digits to input, rejecr everything else.
-// Should remove leading 0 after first digit input.
-// Should clear everything
-// Should reject adding multiple leading zeros to history
-
-// In Progress
-// Should add digits and operators to history, reject everything else.
-
-// ToDo
-// Should show running total when operator pressed.
-// Should show total when equal pressed.
-// Should add commas correctly
-// Should show percent as decimal in history.
-
 const inputDiv = document.getElementById('input');
 const historyDiv = document.getElementById('history');
 
-document.getElementById('calculator__bottom').addEventListener('click', function(e) {
+document.getElementById('calculator__bottom').addEventListener('click', function (e) {
   const value = e.target.innerText;
   if (Number(value) >= 0) {
     calculator.addToInput(value);
-    // calculator.addToUserInputDisplay(value);
     calculator.addToHistory(value);
-    // calculator.addToUserHistoryDisplay(value);
+    console.clear();
+    console.log('History: ' + calculator.history, 'Input: ' + calculator.input);
     return true;
+  } else if (calculator.hasOwnProperty(e.target.value) && value != 'C') {
+    calculator.addToHistory(value);
+    // calculator.equal();
   } else if (value === 'C') {
     calculator.clearAll();
   }
 
 
 })
+
+
+// !calculator.history.match(/\d$/);
