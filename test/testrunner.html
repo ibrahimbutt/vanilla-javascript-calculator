@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" tpye="text/css" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link rel="stylesheet" href="./node_modules/mocha/mocha.css">
+  <style type="text/css">
+    .container {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="calculator">
+      <div class="calculator__top" id="calculator__top">
+        <div class="history" id="history">
+        </div>
+        <div class="input" id="input">
+          0
+        </div>
+      </div>
+      <div class="calculator__bottom" id="calculator__bottom">
+        <button value="clearAll">C</button>
+        <button value="addMinus">&#177;</button>
+        <button value="percent">%</button>
+        <button value="divide">&#247;</button>
+
+        <button value="7">7</button>
+        <button value="8">8</button>
+        <button value="9">9</button>
+        <button value="multiply">&#215</button>
+
+        <button value="4">4</button>
+        <button value="5">5</button>
+        <button value="6">6</button>
+        <button value="subtract">&#8722;</button>
+
+        <button value="1">1</button>
+        <button value="2">2</button>
+        <button value="3">3</button>
+        <button value="add">+</button>
+
+        <button value=".">.</button>
+        <button value="0">0</button>
+        <button value="00">00</button>
+        <button value="getTotal">=</button>
+      </div>
+    </div>
+  </div>
+  <script src="../dist/script.js"></script>
+  <script src="../dist/numeral.js"></script>
+  
+  <div id="mocha"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script>
+    mocha.ui('bdd');
+    mocha.reporter('html');
+    var expect = chai.expect;
+  </script>
+  <script src="./test.js"></script>
+  <script>
+    mocha.run();
+  </script>
+
+</body>
+
+</html>
