@@ -1,0 +1,79 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2018-02-27T10:37:09.552Z",
+    "end": "2018-02-27T10:37:09.557Z",
+    "duration": 5,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "passPercentClass": "success",
+    "pendingPercentClass": "danger"
+  },
+  "suites": {
+    "uuid": "2a98443c-d678-4e38-9995-0397ece8b1fc",
+    "title": "",
+    "fullFile": "",
+    "file": "",
+    "beforeHooks": [],
+    "afterHooks": [],
+    "tests": [],
+    "suites": [
+      {
+        "uuid": "87ccc41e-d0ca-4841-be82-cb9ab871d557",
+        "title": "Operators",
+        "fullFile": "/Users/ibrahim/GitHub/Vanilla-JavaScript-Calculator/test/test.js",
+        "file": "/test/test.js",
+        "beforeHooks": [],
+        "afterHooks": [],
+        "tests": [
+          {
+            "title": "Should add correctly",
+            "fullTitle": "Operators Should add correctly",
+            "timedOut": false,
+            "duration": 1,
+            "state": "passed",
+            "speed": "fast",
+            "pass": true,
+            "fail": false,
+            "pending": false,
+            "code": "expect(number).to.equal(5);",
+            "err": {},
+            "isRoot": false,
+            "uuid": "66844a3d-6d14-4ea1-98f8-c3e659f5df05",
+            "isHook": false,
+            "skipped": false
+          }
+        ],
+        "suites": [],
+        "passes": [
+          "66844a3d-6d14-4ea1-98f8-c3e659f5df05"
+        ],
+        "failures": [],
+        "pending": [],
+        "skipped": [],
+        "duration": 1,
+        "root": false,
+        "rootEmpty": false,
+        "_timeout": 2000
+      }
+    ],
+    "passes": [],
+    "failures": [],
+    "pending": [],
+    "skipped": [],
+    "duration": 0,
+    "root": true,
+    "rootEmpty": true,
+    "_timeout": 2000
+  },
+  "copyrightYear": 2018
+}

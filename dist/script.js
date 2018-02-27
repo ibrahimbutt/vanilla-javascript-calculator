@@ -42,7 +42,6 @@ const utility = {
     if (inputDiv.innerText === '0' && (value === '0' || value === '00')) {
       return false;
     }
-
     // Is there a leading zero?
     // If there is, remove it.
     if (inputDiv.innerText === '0' || inputDiv.innerText === '00') {
@@ -71,25 +70,4 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   }
 });
 
-// inputDiv.innerText += value;
-//     inputDiv.innerText = Number(inputDiv.innerText.replace(/,/gi, '')).toLocaleString();
-
-// else if (utility.operators.includes(value)) {
-//   historyDiv.innerText += value;
-// }
-
-// if (historyDiv.innerText.match(/[+×-÷]/g) && (Number(value) || value === '0' || value === '00')) {
-//   let lastInput = historyDiv.innerText.match(/(\d*,)*\d*$/)[0];
-//   lastInput = lastInput.replace(/,/gi, '');
-//   lastInput += value;
-//   lastInput = Number(lastInput).toLocaleString();
-//   historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, String(lastInput));
-// } else if (utility.operatorsSymbols.includes(value)) {
-//   if (utility.wasOperatorPressedLast()) {
-//     historyDiv.innerText = historyDiv.innerText.slice(0, -1);
-//   }
-//   historyDiv.innerText += value;
-// } else {
-//   historyDiv.innerText += value;
-//   // historyDiv.innerText = Number(historyDiv.innerText).toLocaleString();
-// }
+// Next up, double zero bug

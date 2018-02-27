@@ -10,10 +10,11 @@
     "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
-    "mocha": "*"
+    "mocha": "*",
+    "mochawesome": "^3.0.2"
   },
   "scripts": {
-    "test": "mocha --watch ./test"
+    "test": "mocha ./test --reporter mochawesome"
   },
   "dependencies": {
     "numeral": "^2.0.6"
