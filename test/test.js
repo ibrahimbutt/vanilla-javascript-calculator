@@ -58,4 +58,7 @@ describe('Edge Cases', () => {
     expect(history.innerText).to.equal('');
   });
 
+  it('Should reject adding more than one decimal point.', () => {
+    expect().to.fail();
+  });
 });

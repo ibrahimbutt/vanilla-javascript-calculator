@@ -12,7 +12,11 @@ const historyDiv = document.getElementById('history');
 const view = {
   total: '',
   addUserInputToInput(value) {
-    inputDiv.innerText = numeral(inputDiv.innerText + value).format('0,0');
+    if (value === '.' || inputDiv.innerText.endsWith('.') || inputDiv.innerText.includes('.')) {
+      inputDiv.innerText += value;
+    } else {
+      inputDiv.innerText = numeral(inputDiv.innerText + value).format('0,0');
+    }
   },
   addUserInputToHistory(value) {
     if (Number(value)) {
@@ -29,6 +33,8 @@ const view = {
     } else if (utility.wasOperatorPressedLast()) {
       historyDiv.innerText = historyDiv.innerText.slice(0, -1);
       historyDiv.innerText += value;
+    } else if (value === '.') {
+      historyDiv.innerText += value;
     } else {
       historyDiv.innerText += value;
       inputDiv.innerText = '0';
@@ -41,8 +47,11 @@ const view = {
 };
 
 const utility = {
+  // alreadyHasDecimal() {
+  //   return input
+  // },
   wasOperatorPressedLast() {
-    return !historyDiv.innerText.match(/\d$/);
+    return historyDiv.innerText.match(/[+×−÷]$/);
   },
   digitPressHandler(value) {
     // Is the input 0, as well as the value?
