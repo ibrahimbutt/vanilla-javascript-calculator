@@ -40,13 +40,24 @@ describe('Edge Cases', () => {
     expect(input.innerText).to.equal('1,000');
   });
 
+  it('Should correctly format commas.', () => {
+    digitOneButton.click();
+    digitZeroButton.click();
+    digitZeroButton.click();
+    digitZeroButton.click();
+    digitZeroButton.click();
+    digitZeroButton.click();
+    digitZeroButton.click();
+    expect(input.innerText).to.equal('1,000,000');
+  });
+
   it('Should reject adding a leading operator to history.', () => {
     addButton.click();
     expect(history.innerText).to.equal('');
   });
 
   it('Should remove previous operator, if another pressed right after.', () => {
-    history.innerText = '1';
+    digitOneButton.click();
     subtractButton.click();
     addButton.click();
     expect(history.innerText).to.equal('1+');
