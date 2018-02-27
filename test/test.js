@@ -35,8 +35,9 @@ describe('Edge Cases', () => {
 
   it('Should correctly evaluate 0 and 00 as a number on user input.', () => {
     digitOneButton.click();
+    digitZeroButton.click();
     digitDoubleZeroButton.click();
-    expect(input.innerText).to.equal('100');
+    expect(input.innerText).to.equal('1000');
   });
 
   it('Should reject adding a leading operator to history.', () => {
