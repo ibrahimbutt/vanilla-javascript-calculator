@@ -44,7 +44,7 @@ const view = {
     if (utility.isStateFresh()) {
       return false;
     } else if (utility.isLastInputOperator()) {
-      historyDiv.innerText = historyDiv.innerText.slice(0, -1);
+      utility.removeLastInputFromHistory();
     }
     historyDiv.innerText += value;
     return true;
@@ -70,11 +70,14 @@ const utility = {
   },
   removeLastInputsFromHistoryTillOperator() {
     for (let i = historyDiv.innerText.length; !utility.isLastInputOperator(); i -= 1) {
-      historyDiv.innerText = historyDiv.innerText.slice(0, -1);
+      this.removeLastInputFromHistory();
     }
   },
   doesInputIncludeDecimal() {
     return inputDiv.innerText.includes('.');
+  },
+  removeLastInputFromHistory() {
+    historyDiv.innerText = historyDiv.innerText.slice(0, -1);
   },
 };
 
