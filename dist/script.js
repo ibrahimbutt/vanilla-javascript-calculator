@@ -13,7 +13,7 @@ const view = {
   isDigit(value) {
     if (utility.isStateFresh() && (value === '0' || value === '00' || value === '.')) {
       return false;
-    } else if (utility.doesInputIncludeDecimal() && value === '.') {
+    } else if ((utility.doesInputIncludeDecimal() || utility.isLastInputOperator()) && value === '.') {
       return false;
     } else if (utility.isLastInputOperator()) {
       inputDiv.innerText = value;
@@ -21,6 +21,9 @@ const view = {
     } else if (Number(value) && inputDiv.innerText === '0') {
       inputDiv.innerText = value;
       historyDiv.innerText = value;
+    } else if (value === '.' || utility.doesInputIncludeDecimal()) {
+      inputDiv.innerText += value;
+      historyDiv.innerText += value;
     } else {
       // Add digit to input
       // Format input

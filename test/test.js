@@ -54,9 +54,6 @@ describe('Edge Cases', () => {
 
   it('Should only add digits and decimals to input.', () => {
     digitOneButton.click();
-    addButton.click();
-    expect(input.innerText).to.equal('1');
-
     decimalButton.click();
     expect(input.innerText).to.equal('1.');
   });
