@@ -11,7 +11,7 @@ const historyDiv = document.getElementById('history');
 
 const view = {
   isDigit(value) {
-    if (utility.isStateFresh() && (value === '0' || value === '.')) {
+    if (utility.isStateFresh() && (value === '0' || value === '00' || value === '.')) {
       return false;
     } else if (inputDiv.innerText.includes('.') && value === '.') {
       return false;
@@ -41,7 +41,7 @@ const view = {
 
 const utility = {
   isInputNumberOrDecimal(value) {
-    return Number(value) || value === '.';
+    return Number(value) || value === '.' || value === '0' || value === '00';
   },
   isInputOperator(value) {
     return !!value.match(/[+×−÷]/);

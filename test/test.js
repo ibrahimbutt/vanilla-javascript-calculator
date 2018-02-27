@@ -13,6 +13,8 @@ const history = document.getElementById('history');
 const decimalButton = document.querySelectorAll("[value='.']")[0];
 const addButton = document.querySelectorAll("[value='add']")[0];
 const subtractButton = document.querySelectorAll("[value='subtract']")[0];
+const digitZeroButton = document.querySelectorAll("[value='0']")[0];
+const digitDoubleZeroButton = document.querySelectorAll("[value='00']")[0];
 const digitOneButton = document.querySelectorAll("[value='1']")[0];
 const digitTwoButton = document.querySelectorAll("[value='2']")[0];
 const digitThreeButton = document.querySelectorAll("[value='3']")[0];
@@ -29,6 +31,12 @@ describe('Edge Cases', () => {
   it('Should remove leading 0 on user input.', () => {
     digitOneButton.click();
     expect(input.innerText).to.equal('1');
+  });
+
+  it('Should correctly evaluate 0 and 00 as a number on user input.', () => {
+    digitOneButton.click();
+    digitDoubleZeroButton.click();
+    expect(input.innerText).to.equal('100');
   });
 
   it('Should reject adding a leading operator to history.', () => {
