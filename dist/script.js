@@ -5,40 +5,49 @@ numeral
 /* eslint no-use-before-define: 0 */
 
 // (\d*,)*(\d*)(\.\d+)*$
-
+// console.clear();
 const inputDiv = document.getElementById('input');
 const historyDiv = document.getElementById('history');
 
 const view = {
-  total: '',
-  addUserInputToInput(value) {
-    if (value === '.' || inputDiv.innerText.endsWith('.') || inputDiv.innerText.includes('.')) {
+  isDigit(value) {
+    if (utility.isStateFresh() && (value === '0' || value === '00' || value === '.')) {
+      return false;
+    } else if ((utility.doesInputIncludeDecimal() || utility.isLastInputOperator()) && value === '.') {
+      return false;
+    } else if (utility.isLastInputOperator()) {
+      inputDiv.innerText = value;
+      historyDiv.innerText += value;
+    } else if (Number(value) && inputDiv.innerText === '0') {
+      inputDiv.innerText = value;
+      historyDiv.innerText = value;
+    } else if (value === '.' || utility.doesInputIncludeDecimal()) {
       inputDiv.innerText += value;
+      historyDiv.innerText += value;
     } else {
-      inputDiv.innerText = numeral(inputDiv.innerText + value).format('0,0');
+      // Add digit to input
+      // Format input
+      inputDiv.innerText = numeral(inputDiv.innerText + value).format();
+      // If operator already present
+      // Means, input and history shoudlnt be identical
+      // Therefore, need to remove last input from history, add new formatted total input
+      if (utility.isOrInludesOperator(historyDiv.innerText)) {
+        utility.removeLastInputsFromHistoryTillOperator();
+        historyDiv.innerText += inputDiv.innerText;
+      } else {
+        historyDiv.innerText = inputDiv.innerText;
+      }
     }
+    return true;
   },
-  addUserInputToHistory(value) {
-    if (Number(value)) {
-      // Get last input string
-      let historyAfterLastOperator = historyDiv.innerText.match(/(\d*,)*\d*$/)[0];
-      // Remove commas
-      historyAfterLastOperator = historyAfterLastOperator.replace(/,/g, '');
-      // Append new value
-      historyAfterLastOperator += value;
-      // Apply commas
-      historyAfterLastOperator = numeral(Number(historyAfterLastOperator)).format('0,0');
-      // Remove original input string
-      historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, historyAfterLastOperator);
-    } else if (utility.wasOperatorPressedLast()) {
-      historyDiv.innerText = historyDiv.innerText.slice(0, -1);
-      historyDiv.innerText += value;
-    } else if (value === '.') {
-      historyDiv.innerText += value;
-    } else {
-      historyDiv.innerText += value;
-      inputDiv.innerText = '0';
+  isOperator(value) {
+    if (utility.isStateFresh()) {
+      return false;
+    } else if (utility.isLastInputOperator()) {
+      utility.removeLastInputFromHistory();
     }
+    historyDiv.innerText += value;
+    return true;
   },
   clearAll() {
     inputDiv.innerText = '0';
@@ -47,48 +56,39 @@ const view = {
 };
 
 const utility = {
-  // alreadyHasDecimal() {
-  //   return input
-  // },
-  wasOperatorPressedLast() {
-    return historyDiv.innerText.match(/[+×−÷]$/);
+  isInputNumberOrDecimal(value) {
+    return Number(value) || value === '.' || value === '0' || value === '00';
   },
-  digitPressHandler(value) {
-    // Is the input 0, as well as the value?
-    // Then state is clean, so reject to avoid leading zeros.
-    if (inputDiv.innerText === '0' && (value === '0' || value === '00' || value === '.')) {
-      return false;
-    }
-    // Is there a leading zero?
-    // If there is, remove it.
-    if (inputDiv.innerText === '0' || inputDiv.innerText === '00') {
-      inputDiv.innerText = '';
-    }
-    view.addUserInputToInput(value);
-    view.addUserInputToHistory(value);
-    return true;
+  isOrInludesOperator(value) {
+    return !!value.match(/[+×−÷]/);
   },
-  operatorPressedHandler(value) {
-    if (historyDiv.innerText === '') {
-      return false;
-    }
-    view.addUserInputToHistory(value);
-    return true;
+  isLastInputOperator() {
+    return !!historyDiv.innerText.match(/[+×−÷]$/);
   },
-  operators: ['add', 'subtract', 'divide', 'multiply'],
-  operatorsSymbols: ['+', '×', '-', '÷'],
+  isStateFresh() {
+    return (inputDiv.innerText === '0' && historyDiv.innerText === '');
+  },
+  removeLastInputsFromHistoryTillOperator() {
+    for (let i = historyDiv.innerText.length; !utility.isLastInputOperator(); i -= 1) {
+      this.removeLastInputFromHistory();
+    }
+  },
+  doesInputIncludeDecimal() {
+    return inputDiv.innerText.includes('.');
+  },
+  removeLastInputFromHistory() {
+    historyDiv.innerText = historyDiv.innerText.slice(0, -1);
+  },
 };
 
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   const value = e.target.innerText;
-
-  if (Number(value) || value === '0' || value === '00' || value === '.') {
-    utility.digitPressHandler(value);
-  } else if (utility.operators.includes(e.target.value)) {
-    utility.operatorPressedHandler(value);
+  // console.log(utility.isOperator(value));
+  if (utility.isInputNumberOrDecimal(value)) {
+    view.isDigit(value);
+  } else if (utility.isOrInludesOperator(value)) {
+    view.isOperator(value);
   } else if (value === 'C') {
     view.clearAll();
   }
 });
-
-// Next up, double zero bug
