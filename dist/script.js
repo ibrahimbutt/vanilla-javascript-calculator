@@ -2,6 +2,9 @@
 numeral
 :true */
 /* eslint no-undef: "error" */
+/* eslint no-use-before-define: 0 */
+
+// (\d*,)*(\d*)(\.\d+)*$
 
 const inputDiv = document.getElementById('input');
 const historyDiv = document.getElementById('history');
@@ -25,7 +28,7 @@ const view = {
       historyDiv.innerText = historyDiv.innerText.replace(/(\d*,)*\d*$/, historyAfterLastOperator);
     } else if (utility.wasOperatorPressedLast()) {
       historyDiv.innerText = historyDiv.innerText.slice(0, -1);
-      historyDiv.innerText += value;      
+      historyDiv.innerText += value;
     } else {
       historyDiv.innerText += value;
       inputDiv.innerText = '0';
@@ -57,7 +60,11 @@ const utility = {
     return true;
   },
   operatorPressedHandler(value) {
+    if (historyDiv.innerText === '') {
+      return false;
+    }
     view.addUserInputToHistory(value);
+    return true;
   },
   operators: ['add', 'subtract', 'divide', 'multiply'],
   operatorsSymbols: ['+', '×', '-', '÷'],

@@ -1,9 +1,10 @@
 // Cases
 
 // Done
-// Should add digits to input, rejecr everything else.
+// Should add digits to input, reject everything else.
 // Should remove leading 0 after first digit input.
 // Should clear everything
+
 // Should reject adding multiple leading zeros to history
 // Should reject adding leading operators
 // Should add digits and operators to history, reject everything else.

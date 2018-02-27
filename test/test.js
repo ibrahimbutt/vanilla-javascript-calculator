@@ -31,8 +31,24 @@ describe('Edge Cases', () => {
   });
 
   it('Should remove previous operator, if another pressed right after.', () => {
+    history.innerText = '1';
     document.querySelectorAll("[value='subtract']")[0].click();
     document.querySelectorAll("[value='add']")[0].click();
-    expect(history.innerText).to.equal('+');
+    expect(history.innerText).to.equal('1+');
   });
+
+  it('Should only add digits to input.', () => {
+    const nonDigitButtons = document.getElementsByClassName('TC-not-digit');
+    Object.values(nonDigitButtons).forEach((button) => {
+      button.click();
+    });
+    expect(input.innerText).to.equal('0');
+
+    const digitButtons = document.getElementsByClassName('TC-is-digit');
+    Object.values(digitButtons).forEach((button) => {
+      button.click();
+    });
+    expect(input.innerText).to.equal('789,456,123');
+  });
+
 });
