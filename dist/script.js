@@ -43,6 +43,9 @@ const view = {
   isOperator(value) {
     if (utility.isStateFresh()) {
       return false;
+    } else if (historyDiv.innerText.endsWith('.')) {
+      utility.removeLastInputFromHistory();
+      inputDiv.innerText = inputDiv.innerText.slice(0, -1);
     } else if (utility.isLastInputOperator()) {
       utility.removeLastInputFromHistory();
     }

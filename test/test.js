@@ -78,4 +78,19 @@ describe('Edge Cases', () => {
     decimalButton.click();
     expect(input.innerText).to.equal('1.');
   });
+
+  it('Should remove trailing decimal from input, if next input value is an operator.', () => {
+    digitOneButton.click();
+    decimalButton.click();
+    addButton.click();
+    expect(history.innerText).to.equal('1+');
+  });
+
+  it('Should remove trailing decimal from history, if next input value is an operator.', () => {
+    view.clearAll();
+    digitOneButton.click();
+    decimalButton.click();
+    addButton.click();
+    expect(input.innerText).to.equal('1');
+  });
 });
