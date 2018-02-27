@@ -13,10 +13,9 @@
     "mocha": "*",
     "mochawesome": "^3.0.2"
   },
-  "scripts": {
-    "test": "mocha ./test --reporter mochawesome"
-  },
+  "scripts": {},
   "dependencies": {
-    "numeral": "^2.0.6"
+    "numeral": "^2.0.6",
+    "remove": "^0.1.5"
   }
 }

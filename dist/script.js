@@ -1,10 +1,15 @@
-let inputDiv = document.getElementById('input');
-let historyDiv = document.getElementById('history');
+/* global
+numeral
+:true */
+/* eslint no-undef: "error" */
+
+const inputDiv = document.getElementById('input');
+const historyDiv = document.getElementById('history');
 
 const view = {
   total: '',
   addUserInputToInput(value) {
-    inputDiv.innerText = numeral(input.innerText + value).format('0,0');
+    inputDiv.innerText = numeral(inputDiv.innerText + value).format('0,0');
   },
   addUserInputToHistory(value) {
     if (Number(value)) {

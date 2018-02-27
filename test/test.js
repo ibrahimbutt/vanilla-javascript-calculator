@@ -12,7 +12,6 @@ const input = document.getElementById('input');
 const history = document.getElementById('history');
 
 describe('Edge Cases', () => {
-
   beforeEach(() => {
     view.clearAll();
   });
@@ -29,5 +28,11 @@ describe('Edge Cases', () => {
   it('Should reject adding a leading operator to history.', () => {
     document.querySelectorAll("[value='add']")[0].click();
     expect(history.innerText).to.equal('');
+  });
+
+  it('Should remove previous operator, if another pressed right after.', () => {
+    document.querySelectorAll("[value='subtract']")[0].click();
+    document.querySelectorAll("[value='add']")[0].click();
+    expect(history.innerText).to.equal('+');
   });
 });
