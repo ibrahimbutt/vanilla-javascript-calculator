@@ -51,4 +51,11 @@ describe('Edge Cases', () => {
     expect(input.innerText).to.equal('789,456,123');
   });
 
+  it('Should reject decimal point as first user input.', () => {
+    const decimalButton = Object.values(document.getElementsByClassName('TC-is-decimal-point'))[0];
+    decimalButton.click();
+    expect(input.innerText).to.equal('0');
+    expect(history.innerText).to.equal('');
+  });
+
 });

@@ -47,7 +47,7 @@ const utility = {
   digitPressHandler(value) {
     // Is the input 0, as well as the value?
     // Then state is clean, so reject to avoid leading zeros.
-    if (inputDiv.innerText === '0' && (value === '0' || value === '00')) {
+    if (inputDiv.innerText === '0' && (value === '0' || value === '00' || value === '.')) {
       return false;
     }
     // Is there a leading zero?
@@ -73,7 +73,7 @@ const utility = {
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   const value = e.target.innerText;
 
-  if (Number(value) || value === '0' || value === '00') {
+  if (Number(value) || value === '0' || value === '00' || value === '.') {
     utility.digitPressHandler(value);
   } else if (utility.operators.includes(e.target.value)) {
     utility.operatorPressedHandler(value);
