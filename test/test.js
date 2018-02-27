@@ -37,7 +37,7 @@ describe('Edge Cases', () => {
     digitOneButton.click();
     digitZeroButton.click();
     digitDoubleZeroButton.click();
-    expect(input.innerText).to.equal('1000');
+    expect(input.innerText).to.equal('1,000');
   });
 
   it('Should reject adding a leading operator to history.', () => {
