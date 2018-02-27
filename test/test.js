@@ -10,6 +10,12 @@ expect
 
 const input = document.getElementById('input');
 const history = document.getElementById('history');
+const decimalButton = document.querySelectorAll("[value='.']")[0];
+const addButton = document.querySelectorAll("[value='add']")[0];
+const subtractButton = document.querySelectorAll("[value='subtract']")[0];
+const digitOneButton = document.querySelectorAll("[value='1']")[0];
+const digitTwoButton = document.querySelectorAll("[value='2']")[0];
+const digitThreeButton = document.querySelectorAll("[value='3']")[0];
 
 describe('Edge Cases', () => {
   beforeEach(() => {
@@ -21,44 +27,49 @@ describe('Edge Cases', () => {
   });
 
   it('Should remove leading 0 on user input.', () => {
-    document.querySelectorAll("[value='1']")[0].click();
+    digitOneButton.click();
     expect(input.innerText).to.equal('1');
   });
 
   it('Should reject adding a leading operator to history.', () => {
-    document.querySelectorAll("[value='add']")[0].click();
+    addButton.click();
     expect(history.innerText).to.equal('');
   });
 
   it('Should remove previous operator, if another pressed right after.', () => {
     history.innerText = '1';
-    document.querySelectorAll("[value='subtract']")[0].click();
-    document.querySelectorAll("[value='add']")[0].click();
+    subtractButton.click();
+    addButton.click();
     expect(history.innerText).to.equal('1+');
   });
 
-  it('Should only add digits to input.', () => {
-    const nonDigitButtons = document.getElementsByClassName('TC-not-digit');
-    Object.values(nonDigitButtons).forEach((button) => {
-      button.click();
-    });
-    expect(input.innerText).to.equal('0');
+  it('Should only add digits and decimals to input.', () => {
+    digitOneButton.click();
+    addButton.click();
+    expect(input.innerText).to.equal('1');
 
-    const digitButtons = document.getElementsByClassName('TC-is-digit');
-    Object.values(digitButtons).forEach((button) => {
-      button.click();
-    });
-    expect(input.innerText).to.equal('789,456,123');
+    decimalButton.click();
+    expect(input.innerText).to.equal('1.');
   });
 
   it('Should reject decimal point as first user input.', () => {
-    const decimalButton = Object.values(document.getElementsByClassName('TC-is-decimal-point'))[0];
     decimalButton.click();
     expect(input.innerText).to.equal('0');
     expect(history.innerText).to.equal('');
   });
 
   it('Should reject adding more than one decimal point.', () => {
-    expect().to.fail();
+    digitOneButton.click();
+    decimalButton.click();
+    digitTwoButton.click();
+    digitThreeButton.click();
+    decimalButton.click();
+    expect(input.innerText).to.equal('1.23');
+
+    view.clearAll();
+    digitOneButton.click();
+    decimalButton.click();
+    decimalButton.click();
+    expect(input.innerText).to.equal('1.');
   });
 });
