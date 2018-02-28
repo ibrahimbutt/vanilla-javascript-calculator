@@ -64,7 +64,6 @@ const view = {
       const lastInput = lastAndCurrentInput[0];
       const currentInput = lastAndCurrentInput[1];
       const lastOperatorUsed = utility.getLastOperatorInHistory();
-      console.log(calculator.total, ' and', currentInput);
       switch (lastOperatorUsed) {
         case '+':
           calculator.total = String(calculator.add(calculator.total, lastInput));
