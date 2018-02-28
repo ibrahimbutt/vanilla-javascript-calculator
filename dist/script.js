@@ -1,150 +1,66 @@
-/* global
-numeral
-:true */
+// /* global
+// numeral
+// :true */
 /* eslint no-undef: "error" */
 /* eslint no-use-before-define: 0 */
 
-// (\d*,)*(\d*)(\.\d+)*$
-// console.clear();
-const inputDiv = document.getElementById('input');
-const historyDiv = document.getElementById('history');
+let inputDisplay = document.getElementById('input');
+let historyDisplay = document.getElementById('history');
+const buttonsSection = document.getElementById('calculator__bottom');
 
 const calculator = {
   total: '',
-  add(a = 0, b) {
-    // return a + b;
-    return Number(a) + Number(b);
+  add(n) {
+    return Number(calculator.total) + Number(n);
   },
 };
 
 const view = {
-  isDigit(value) {
-    if (utility.isStateFresh() && (value === '0' || value === '00' || value === '.')) {
+  handleDigitsAndDecimalPress(buttonValue, buttonText) {
+    if (inputDisplay.innerText === '0' && buttonText === '.') {
+      // avoid leading decimals
       return false;
-    } else if ((utility.doesInputIncludeDecimal() || utility.isLastInputOperator()) && value === '.') {
-      return false;
-    } else if (utility.isLastInputOperator()) {
-      inputDiv.innerText = value;
-      historyDiv.innerText += value;
-    } else if (Number(value) && inputDiv.innerText === '0') {
-      inputDiv.innerText = value;
-      historyDiv.innerText = value;
-    } else if (value === '.' || utility.doesInputIncludeDecimal()) {
-      inputDiv.innerText += value;
-      historyDiv.innerText += value;
-    } else {
-      // Add digit to input
-      // Format input
-      inputDiv.innerText = numeral(inputDiv.innerText + value).format();
-      // If operator already present
-      // Means, input and history shoudlnt be identical
-      // Therefore, need to remove last input from history, add new formatted total input
-      if (utility.isOrInludesOperator(historyDiv.innerText)) {
-        utility.removeLastInputsFromHistoryTillOperator();
-        historyDiv.innerText += inputDiv.innerText;
-      } else {
-        historyDiv.innerText = inputDiv.innerText;
-      }
     }
+    if (inputDisplay.innerText === '0' || historyDisplay.innerText.match(/[×−+÷]$/)) {
+      inputDisplay.innerText = buttonText;
+      return true;
+    } else if (buttonValue === 'decimal' && inputDisplay.innerText.includes('.')) {
+      return false;
+    }
+    inputDisplay.innerText += buttonText;
     return true;
   },
-  isOperator(value) {
-    if (utility.isStateFresh()) {
+  handleOperatorPress(buttonValue, buttonText) {
+    if (inputDisplay.innerText === '0') {
+      // avoid leading operators
       return false;
-    } else if (historyDiv.innerText.endsWith('.')) {
-      utility.removeLastInputFromHistory();
-      inputDiv.innerText = inputDiv.innerText.slice(0, -1);
-    } else if (utility.isLastInputOperator()) {
-      utility.removeLastInputFromHistory();
-    } else if (calculator.total === '') {
-      calculator.total = inputDiv.innerText;
-      historyDiv.innerText += value;
+    } else if (calculator.total === '' && historyDisplay.innerText === '') {
+      historyDisplay.innerText = inputDisplay.innerText;
+      calculator.total = historyDisplay.innerText;
+      historyDisplay.innerText += buttonText;
     } else {
-      const lastAndCurrentInput = utility.getLastAndCurrentInput();
-      const lastInput = lastAndCurrentInput[0];
-      const currentInput = lastAndCurrentInput[1];
-      const lastOperatorUsed = utility.getLastOperatorInHistory();
-      switch (lastOperatorUsed) {
-        case '+':
-          calculator.total = String(calculator.add(calculator.total, lastInput));
-          break;
-        default:
-          break;
-      }
-      inputDiv.innerText = calculator.total;
-      historyDiv.innerText += value;
+      calculator.total = calculator[buttonValue](inputDisplay.innerText);
+      historyDisplay.innerText += inputDisplay.innerText;
+      inputDisplay.innerText = calculator.total;
     }
-
-    // historyDiv.innerText += value;
-    return true;
   },
   clearAll() {
-    inputDiv.innerText = '0';
-    historyDiv.innerText = '';
+    historyDisplay.innerText = '';
+    inputDisplay.innerText = '0';
     calculator.total = '';
   },
 };
 
-const utility = {
-  isInputNumberOrDecimal(value) {
-    return Number(value) || value === '.' || value === '0' || value === '00';
-  },
-  isOrInludesOperator(value) {
-    return !!value.match(/[+×−÷]/);
-  },
-  isLastInputOperator() {
-    return !!historyDiv.innerText.match(/[+×−÷]$/);
-  },
-  getLastOperatorInHistory() {
-    const arrayOfOperatorsInHistory = historyDiv.innerText.match(/[+×−÷]/g);
-    const arrayOfOperatorsInHistoryLength = arrayOfOperatorsInHistory.length;
-    return arrayOfOperatorsInHistory[arrayOfOperatorsInHistoryLength - 1];
-  },
-  isStateFresh() {
-    return (inputDiv.innerText === '0' && historyDiv.innerText === '');
-  },
-  removeLastInputsFromHistoryTillOperator() {
-    for (let i = historyDiv.innerText.length; !utility.isLastInputOperator(); i -= 1) {
-      this.removeLastInputFromHistory();
-    }
-  },
-  doesInputIncludeDecimal() {
-    return inputDiv.innerText.includes('.');
-  },
-  removeLastInputFromHistory() {
-    historyDiv.innerText = historyDiv.innerText.slice(0, -1);
-  },
-  getLastAndCurrentInput() {
-    const historyWithoutCommas = historyDiv.innerText.replace(/,/g, '');
-    const arrayOfInputs = historyWithoutCommas.match(/\d+?\d*\.?\d*/g);
-    const arrayOfInputsLength = arrayOfInputs.length;
-    const currentInput = arrayOfInputs[arrayOfInputsLength - 1];
-    const lastInput = arrayOfInputs[arrayOfInputsLength - 2];
-    return [lastInput, currentInput];
-  },
-};
-
-document.getElementById('calculator__bottom').addEventListener('click', (e) => {
-  const value = e.target.innerText;
-  // console.log(utility.isOperator(value));
-  if (utility.isInputNumberOrDecimal(value)) {
-    view.isDigit(value);
-  } else if (utility.isOrInludesOperator(value)) {
-    view.isOperator(value);
-  } else if (value === 'C') {
-    view.clearAll();
+buttonsSection.addEventListener('click', (event) => {
+  const buttonValue = event.target.value;
+  const buttonText = event.target.innerText;
+  if (Number(buttonText) ||
+    buttonValue === '0' ||
+    buttonValue === '00' ||
+    buttonValue === 'decimal'
+  ) {
+    view.handleDigitsAndDecimalPress(buttonValue, buttonText);
+  } else if (buttonText.match(/[×−+÷]/g)) {
+    view.handleOperatorPress(buttonValue, buttonText);
   }
 });
-
-// If calculator.total is empty
-//    Add inputDiv.innerText to calculator.total
-//    Add value to historyDiv.innerText
-//    End
-// If calculator.total is not empty
-//    utility.getLastAndCurrentInput()
-//    utility.getLastOperatorInHistory()
-//    switch statement
-//      calculator.total = calculator.add()
-//      End
-//    inputDiv.innerText = calculator.total
-//    historyDiv.innerText += value

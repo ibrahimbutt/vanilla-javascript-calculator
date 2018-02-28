@@ -10,7 +10,7 @@ expect
 
 const input = document.getElementById('input');
 const history = document.getElementById('history');
-const decimalButton = document.querySelectorAll("[value='.']")[0];
+const decimalButton = document.querySelectorAll("[value='decimal']")[0];
 const addButton = document.querySelectorAll("[value='add']")[0];
 const subtractButton = document.querySelectorAll("[value='subtract']")[0];
 const digitZeroButton = document.querySelectorAll("[value='0']")[0];
@@ -37,19 +37,19 @@ describe('Edge Cases', () => {
     digitOneButton.click();
     digitZeroButton.click();
     digitDoubleZeroButton.click();
-    expect(input.innerText).to.equal('1,000');
+    expect(input.innerText).to.equal('1000');
   });
 
-  it('Should correctly format commas.', () => {
-    digitOneButton.click();
-    digitZeroButton.click();
-    digitZeroButton.click();
-    digitZeroButton.click();
-    digitZeroButton.click();
-    digitZeroButton.click();
-    digitZeroButton.click();
-    expect(input.innerText).to.equal('1,000,000');
-  });
+  // it('Should correctly format commas.', () => {
+  //   digitOneButton.click();
+  //   digitZeroButton.click();
+  //   digitZeroButton.click();
+  //   digitZeroButton.click();
+  //   digitZeroButton.click();
+  //   digitZeroButton.click();
+  //   digitZeroButton.click();
+  //   expect(input.innerText).to.equal('1,000,000');
+  // });
 
   it('Should reject adding a leading operator to history.', () => {
     addButton.click();
