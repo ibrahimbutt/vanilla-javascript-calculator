@@ -9,6 +9,13 @@ numeral
 const inputDiv = document.getElementById('input');
 const historyDiv = document.getElementById('history');
 
+const calculator = {
+  add(a = 0, b) {
+    // return a + b;
+    return Number(a) + Number(b);
+  },
+};
+
 const view = {
   isDigit(value) {
     if (utility.isStateFresh() && (value === '0' || value === '00' || value === '.')) {
@@ -49,12 +56,14 @@ const view = {
     } else if (utility.isLastInputOperator()) {
       utility.removeLastInputFromHistory();
     }
+
     historyDiv.innerText += value;
     return true;
   },
   clearAll() {
     inputDiv.innerText = '0';
     historyDiv.innerText = '';
+    calculator.total = '';
   },
 };
 
@@ -67,6 +76,11 @@ const utility = {
   },
   isLastInputOperator() {
     return !!historyDiv.innerText.match(/[+×−÷]$/);
+  },
+  getLastOperatorInHistory() {
+    const arrayOfOperatorsInHistory = historyDiv.innerText.match(/[+×−÷]/g);
+    const arrayOfOperatorsInHistoryLength = arrayOfOperatorsInHistory.length;
+    return arrayOfOperatorsInHistory[arrayOfOperatorsInHistoryLength - 1];
   },
   isStateFresh() {
     return (inputDiv.innerText === '0' && historyDiv.innerText === '');
@@ -81,6 +95,14 @@ const utility = {
   },
   removeLastInputFromHistory() {
     historyDiv.innerText = historyDiv.innerText.slice(0, -1);
+  },
+  getLastAndCurrentInput() {
+    const historyWithoutCommas = historyDiv.innerText.replace(/,/g, '');
+    const arrayOfInputs = historyWithoutCommas.match(/\d+?\d*\.?\d*/g);
+    const arrayOfInputsLength = arrayOfInputs.length;
+    const currentInput = arrayOfInputs[arrayOfInputsLength - 1];
+    const lastInput = arrayOfInputs[arrayOfInputsLength - 2];
+    return [lastInput, currentInput];
   },
 };
 
