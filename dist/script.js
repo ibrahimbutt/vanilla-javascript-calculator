@@ -19,11 +19,16 @@ const calculator = {
   subtract() {
     return Number(total) - Number(inputDisplay.innerText);
   },
+  multiply() {
+    return Number(total) * Number(inputDisplay.innerText);
+  },
   divide() {
     return Number(total) / Number(inputDisplay.innerText);
   },
   getTotal() {
-
+    total = this[lastOperatorPressed]();
+    historyDisplay.innerText += inputDisplay.innerText;
+    inputDisplay.innerText = total;
   },
   clearAll() {
     total = '';
