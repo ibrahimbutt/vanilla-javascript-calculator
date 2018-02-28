@@ -11,6 +11,7 @@ const buttonsSection = document.getElementById('calculator__bottom');
 let total = '';
 let wasOperatorPressedLast = false;
 let lastOperatorPressed = '';
+let equalWasPressedLast = false;
 
 const calculator = {
   add() {
@@ -29,6 +30,7 @@ const calculator = {
     total = this[lastOperatorPressed]();
     historyDisplay.innerText += inputDisplay.innerText;
     inputDisplay.innerText = total;
+    equalWasPressedLast = true;
   },
   clearAll() {
     total = '';
@@ -40,12 +42,11 @@ const calculator = {
 };
 
 const onDigitPress = (button) => {
+  equalWasPressedLast = false;
   if (wasOperatorPressedLast) {
     inputDisplay.innerText = button.innerText;
     wasOperatorPressedLast = false;
-    return true;
-  }
-  if (inputDisplay.innerText === '0') {
+  } else if (inputDisplay.innerText === '0') {
     inputDisplay.innerText = button.innerText;
   } else {
     inputDisplay.innerText += button.innerText;
@@ -54,9 +55,11 @@ const onDigitPress = (button) => {
 
 const onOperatorPress = (button) => {
   wasOperatorPressedLast = true;
-  // const lastOperatorPressed = button.value;
-
-  if (total === '') {
+  if (equalWasPressedLast) {
+    historyDisplay.innerText += button.innerText;
+    lastOperatorPressed = button.value;
+    return true;
+  } else if (total === '') {
     total = inputDisplay.innerText;
   } else {
     total = calculator[lastOperatorPressed]();
