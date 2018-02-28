@@ -10,6 +10,7 @@ const inputDiv = document.getElementById('input');
 const historyDiv = document.getElementById('history');
 
 const calculator = {
+  total: '',
   add(a = 0, b) {
     // return a + b;
     return Number(a) + Number(b);
@@ -55,9 +56,27 @@ const view = {
       inputDiv.innerText = inputDiv.innerText.slice(0, -1);
     } else if (utility.isLastInputOperator()) {
       utility.removeLastInputFromHistory();
+    } else if (calculator.total === '') {
+      calculator.total = inputDiv.innerText;
+      historyDiv.innerText += value;
+    } else {
+      const lastAndCurrentInput = utility.getLastAndCurrentInput();
+      const lastInput = lastAndCurrentInput[0];
+      const currentInput = lastAndCurrentInput[1];
+      const lastOperatorUsed = utility.getLastOperatorInHistory();
+      console.log(calculator.total, ' and', currentInput);
+      switch (lastOperatorUsed) {
+        case '+':
+          calculator.total = String(calculator.add(calculator.total, lastInput));
+          break;
+        default:
+          break;
+      }
+      inputDiv.innerText = calculator.total;
+      historyDiv.innerText += value;
     }
 
-    historyDiv.innerText += value;
+    // historyDiv.innerText += value;
     return true;
   },
   clearAll() {
@@ -117,3 +136,16 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
     view.clearAll();
   }
 });
+
+// If calculator.total is empty
+//    Add inputDiv.innerText to calculator.total
+//    Add value to historyDiv.innerText
+//    End
+// If calculator.total is not empty
+//    utility.getLastAndCurrentInput()
+//    utility.getLastOperatorInHistory()
+//    switch statement
+//      calculator.total = calculator.add()
+//      End
+//    inputDiv.innerText = calculator.total
+//    historyDiv.innerText += value
