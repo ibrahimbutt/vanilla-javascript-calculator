@@ -46,6 +46,14 @@ const onDigitPress = (button) => {
   if (wasOperatorPressedLast) {
     inputDisplay.innerText = button.innerText;
     wasOperatorPressedLast = false;
+  } else if (
+    button.value === '00' ||
+    button.value === '0' ||
+    (button.value === 'decimal' && inputDisplay.innerText === '0') ||
+    (inputDisplay.innerText.includes('.') && button.value === 'decimal')
+  ) {
+    // reject leading 0 and decimals, as well as multiple decimals
+    return false;
   } else if (inputDisplay.innerText === '0') {
     inputDisplay.innerText = button.innerText;
   } else {
@@ -56,6 +64,7 @@ const onDigitPress = (button) => {
 const onOperatorPress = (button) => {
   wasOperatorPressedLast = true;
   if (inputDisplay.innerText === '0') {
+    // Reject Leading Operators
     return false;
   } else if (equalWasPressedLast) {
     historyDisplay.innerText += button.innerText;
@@ -70,4 +79,5 @@ const onOperatorPress = (button) => {
 
   historyDisplay.innerText = historyDisplay.innerText + inputDisplay.innerText + button.innerText;
   inputDisplay.innerText = total;
+  return true;
 };
