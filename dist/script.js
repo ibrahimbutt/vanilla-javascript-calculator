@@ -55,7 +55,9 @@ const onDigitPress = (button) => {
 
 const onOperatorPress = (button) => {
   wasOperatorPressedLast = true;
-  if (equalWasPressedLast) {
+  if (inputDisplay.innerText === '0') {
+    return false;
+  } else if (equalWasPressedLast) {
     historyDisplay.innerText += button.innerText;
     lastOperatorPressed = button.value;
     return true;
