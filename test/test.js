@@ -21,7 +21,7 @@ const digitThreeButton = document.querySelectorAll("[value='3']")[0];
 
 describe('Edge Cases', () => {
   beforeEach(() => {
-    view.clearAll();
+    calculator.clearAll();
   });
 
   it('Should display 0 as default on load.', () => {

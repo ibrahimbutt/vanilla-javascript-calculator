@@ -63,6 +63,11 @@ const onDigitPress = (button) => {
 
 const onOperatorPress = (button) => {
   wasOperatorPressedLast = true;
+
+  if (inputDisplay.innerText.endsWith('.')) {
+    inputDisplay.innerText = inputDisplay.innerText.slice(0, -1);
+  }
+
   if (inputDisplay.innerText === '0') {
     // Reject Leading Operators
     return false;
