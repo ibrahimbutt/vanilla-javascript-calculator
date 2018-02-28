@@ -19,30 +19,30 @@
         </div>
       </div>
       <div class="calculator__bottom" id="calculator__bottom">
-        <button value="clearAll" onclick="view.clearAll()">C</button>
+        <button value="clearAll" onclick="calculator.clearAll()">C</button>
         <button value="addMinus">&#177;</button>
         <button value="percent">%</button>
-        <button value="divide">&#247;</button>
+        <button onclick="onOperatorPress(this)"  value="divide">&#247;</button>
 
-        <button value="7">7</button>
-        <button value="8">8</button>
-        <button value="9">9</button>
-        <button value="multiply">&#215</button>
+        <button onclick="onDigitPress(this)" value="7">7</button>
+        <button onclick="onDigitPress(this)" value="8">8</button>
+        <button onclick="onDigitPress(this)" value="9">9</button>
+        <button onclick="onOperatorPress(this)"  value="multiply">&#215</button>
 
-        <button value="4">4</button>
-        <button value="5">5</button>
-        <button value="6">6</button>
-        <button value="subtract">&#8722;</button>
+        <button onclick="onDigitPress(this)" value="4">4</button>
+        <button onclick="onDigitPress(this)" value="5">5</button>
+        <button onclick="onDigitPress(this)" value="6">6</button>
+        <button onclick="onOperatorPress(this)"  value="subtract">&#8722;</button>
 
-        <button value="1">1</button>
-        <button value="2">2</button>
-        <button value="3">3</button>
-        <button value="add">+</button>
+        <button onclick="onDigitPress(this)" value="1">1</button>
+        <button onclick="onDigitPress(this)" value="2">2</button>
+        <button onclick="onDigitPress(this)" value="3">3</button>
+        <button onclick="onOperatorPress(this)"  value="add">+</button>
         
         <button value="decimal">.</button>
-        <button value="0">0</button>
-        <button value="00">00</button>
-        <button value="getTotal">=</button>
+        <button onclick="onDigitPress(this)" value="0">0</button>
+        <button onclick="onDigitPress(this)" value="00">00</button>
+        <button onclick="onOperatorPress(this)"  value="getTotal">=</button>
       </div>
     </div>
   </div>
