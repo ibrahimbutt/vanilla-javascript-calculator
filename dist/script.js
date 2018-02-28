@@ -34,6 +34,10 @@ const view = {
     if (inputDisplay.innerText === '0') {
       // avoid leading operators
       return false;
+    } else if (historyDisplay.innerText.match(/[×−+÷]$/) && buttonText.match(/[×−+÷]$/)) {
+      historyDisplay.innerText = historyDisplay.innerText.slice(0, -1);
+      historyDisplay.innerText += buttonText;
+      
     } else if (calculator.total === '' && historyDisplay.innerText === '') {
       historyDisplay.innerText = inputDisplay.innerText;
       calculator.total = historyDisplay.innerText;
