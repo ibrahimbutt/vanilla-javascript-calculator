@@ -68,6 +68,10 @@ button:active {
   opacity: 1;
 }
 
+.zero-button {
+  grid-column: span 2;
+}
+
 .history {
   font-size: 12px;
   line-height: 12px;
