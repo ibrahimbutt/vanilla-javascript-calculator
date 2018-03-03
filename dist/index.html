@@ -15,34 +15,34 @@
         <div class="history" id="history">
         </div>
         <div class="input" id="input">
-          0
+          2018
         </div>
       </div>
       <div class="calculator__bottom" id="calculator__bottom">
-        <button value="clearAll" onclick="calculator.clearAll()">C</button>
-        <button value="addMinus">&#177;</button>
+        <button value="clearAll" onclick="calculator.clearAll()">AC</button>
+        <button value="addMinus">+/-</button>
         <button value="percent">%</button>
-        <button onclick="onOperatorPress(this)"  value="divide">&#247;</button>
+        <button class="operator" onclick="onOperatorPress(this)"  value="divide">&#247;</button>
 
-        <button onclick="onDigitPress(this)" value="7">7</button>
-        <button onclick="onDigitPress(this)" value="8">8</button>
-        <button onclick="onDigitPress(this)" value="9">9</button>
-        <button onclick="onOperatorPress(this)"  value="multiply">&#215</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="7">7</button>
+        <button class="numera addMinus" onclick="onDigitPress(this)" value="8">8</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="9">9</button>
+        <button class="operator" onclick="onOperatorPress(this)"  value="multiply">&#215</button>
 
-        <button onclick="onDigitPress(this)" value="4">4</button>
-        <button onclick="onDigitPress(this)" value="5">5</button>
-        <button onclick="onDigitPress(this)" value="6">6</button>
-        <button onclick="onOperatorPress(this)"  value="subtract">&#8722;</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="4">4</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="5">5</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="6">6</button>
+        <button class="operator" onclick="onOperatorPress(this)"  value="subtract">&#8722;</button>
 
-        <button onclick="onDigitPress(this)" value="1">1</button>
-        <button onclick="onDigitPress(this)" value="2">2</button>
-        <button onclick="onDigitPress(this)" value="3">3</button>
-        <button onclick="onOperatorPress(this)"  value="add">+</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="1">1</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="2">2</button>
+        <button class="numeral" onclick="onDigitPress(this)" value="3">3</button>
+        <button class="operator" onclick="onOperatorPress(this)"  value="add">+</button>
         
-        <button class="zero-button" onclick="onDigitPress(this)" value="0">0</button>
+        <button class="numeral zero-button" onclick="onDigitPress(this)" value="0">0</button>
         <!-- <button onclick="onDigitPress(this)" value="00">00</button> -->
         <button onclick="onDigitPress(this)" value="decimal">.</button>
-        <button onclick="calculator.getTotal(this)"  value="getTotal">=</button>
+        <button class="operator" onclick="calculator.getTotal(this)"  value="getTotal">=</button>
       </div>
     </div>
   </div>

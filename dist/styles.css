@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('../fonts/economica-regular-otf.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/economica-regular-otf.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/economica-regular-otf.ttf')  format('truetype') 
+}
+@font-face {
+  font-family: 'MyWebFontBold';
+  src: url('../fonts/economica-bold-otf.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/economica-bold-otf.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/economica-bold-otf.ttf')  format('truetype') 
+}
+
 *,
 *:before,
 *:after {
@@ -7,9 +20,10 @@
 }
 
 body {
-  background-color: #CBD0DA;
-  font-family: 'Titillium Web', sans-serif;
+  /* background-color: #f0e4fa; */
+  font-family: 'MyWebFont', 'Titillium Web', sans-serif;
   text-rendering: auto;
+  text-rendering: geometricPrecision;
 }
 
 .container {
@@ -17,7 +31,7 @@ body {
 }
 
 .calculator {
-  height: 425px;
+  height: 435px;
   max-width: 240px;
   display: grid;
   grid-template-rows: 135px 290px;
@@ -32,45 +46,69 @@ body {
   -moz-box-shadow: rgba(23,43,99,0.26) 0 7px 42px;
   -webkit-box-shadow: rgba(23,43,99,0.26) 0 7px 42px;
   box-shadow: rgba(23,43,99,0.26) 0 7px 42px;
+  background: repeating-linear-gradient(rgba(205, 237, 229, 0.05) 0px, rgba(205, 237, 229, 0.05) 2px, transparent 2px, transparent 4px),
+  linear-gradient(#8844ee, #004cee);
+  
 }
 
 .calculator__top {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   border-top-width: 3px;
   padding: 40px;
   text-align: right;
-  transition: background-color .25s ;
+  transition: background-color .25s;
 }
 .calculator__bottom {
-  background-color: #0D3A58;
-  padding: 20px;
+  /* background-color: #0D3A58; */
+  /* padding: 20px; */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 60px);
   -moz-text-size-adjust: 50%;
+  color: #f0e4fa;
+  
 }
 
 button {
   border: none;
   background-color: transparent;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   display: grid;
   align-content: center;
   justify-content: center;
-  color: #CBD0DA;
-  opacity: 0.5;
-  font-size: 14px;
+  color: #f0e4fa;
+  /* opacity: 0.5; */
+  font-size: 20px;
   cursor: pointer;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  font-family: inherit;
+  /* text-shadow: -1px 0px #24aafc; */  
 }
 
 button:active {
   opacity: 1;
 }
 
+.numeral {
+  font-family: 'MyWebFontBold', 'Titillium Web', sans-serif;
+  font-size: 22px;
+}
+
 .zero-button {
   grid-column: span 2;
+  text-align: left;
 }
+
+.operator {
+  background-color: rgba(36, 170, 252, 0.15)
+}
+
+.addMinus span {
+  display: inline-block;
+
+}
+
+
 
 .history {
   font-size: 12px;
@@ -84,4 +122,6 @@ button:active {
   font-size: 36px;
   line-height: 36px;
   opacity: .85;
+  color: #ffffff;
+  text-shadow: -2px 0px #24aafc;
 }
