@@ -1,0 +1,51 @@
+.calculator
+  &__display
+    border-top-width: 3px
+    text-align: right
+    font-size: 36px
+    line-height: 36px
+    padding: 40px 20px
+    opacity: .85
+    color: #ffffff
+    text-shadow: -2px 0px #24aafc
+
+  &__bottom
+    display: grid
+    grid-template-columns: repeat(4, 60px)
+    -moz-text-size-adjust: 50%
+    color: #f0e4fa
+    text-align: center
+
+.button
+  border: none
+  height: 60px
+  width: 60px
+  display: grid
+  cursor: pointer
+  font-family: inherit
+  transition: active 5s ease
+  font-family: 'MyWebFontBold', 'Titillium Web', sans-serif
+  font-size: 20px
+
+  &-text
+    position: absolute
+    justify-self: center
+    align-self: center
+    color: #f0e4fa
+
+  &:nth-child(-n+4) .button-text,
+  &:nth-child(8) .button-text,
+  &:nth-child(12) .button-text,
+  &:nth-child(16) .button-text,
+  &:nth-child(19) .button-text,
+    font-family: 'MyWebFont', 'Titillium Web', sans-serif
+
+  &:nth-child(4),
+  &:nth-child(8),
+  &:nth-child(12),
+  &:nth-child(16),
+  &:nth-child(19),
+    background-color: rgba(36, 170, 252, 0.15)
+
+  &:nth-child(18)
+    grid-column: span 2
