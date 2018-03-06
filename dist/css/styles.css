@@ -11,7 +11,8 @@
 *:before, *:after {
   padding: 0;
   margin: 0;
-  box-sizing: 0; }
+  box-sizing: 0;
+  outline: none; }
 
 body {
   font-family: 'MyWebFont', 'Titillium Web', sans-serif;
@@ -124,6 +125,6 @@ body {
   0% {
     background-color: none; }
   50% {
-    background-color: rgba(36, 170, 252, 0.05); }
+    background-color: rgba(36, 170, 252, 0.15); }
   100% {
     background-color: none; } }
