@@ -1,14 +1,14 @@
 @font-face {
   font-family: 'MyWebFont';
-  src: url('../fonts/economica-regular-otf.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/economica-regular-otf.woff') format('woff'), /* Pretty Modern Browsers */
-       url('../fonts/economica-regular-otf.ttf')  format('truetype') 
+  src: url('./fonts/economica-regular-otf.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/economica-regular-otf.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/economica-regular-otf.ttf')  format('truetype') 
 }
 @font-face {
   font-family: 'MyWebFontBold';
-  src: url('../fonts/economica-bold-otf.woff2') format('woff2'), /* Super Modern Browsers */
-       url('../fonts/economica-bold-otf.woff') format('woff'), /* Pretty Modern Browsers */
-       url('../fonts/economica-bold-otf.ttf')  format('truetype') 
+  src: url('./fonts/economica-bold-otf.woff2') format('woff2'), /* Super Modern Browsers */
+       url('./fonts/economica-bold-otf.woff') format('woff'), /* Pretty Modern Browsers */
+       url('./fonts/economica-bold-otf.ttf')  format('truetype') 
 }
 
 *,

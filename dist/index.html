@@ -1,111 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" tpye="text/css" href="./styles.css">
-  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="./css/styles.css"/>
+    <title>Shunting Yard Postfix Calculator</title>
+  </head>
+  <body>
     <div class="calculator">
       <div class="calculator__top" id="calculator__top">
-        <div class="history" id="history">
-        </div>
-        <div class="input" id="input">
-          2018
-        </div>
+        <div class="history-display" id="historyDisplay"></div>
+        <div class="input-display" id="inputDisplay">0</div>
       </div>
       <div class="calculator__bottom" id="calculator__bottom">
-        <div class="button" value="clearAll" onclick="clearAll(this)">
-          <span class="button-pop-alt">AC</span>
-          <span class="button-text">AC</span>
-        </div>
-        <div class="button" onclick="onOperatorPress(this)" value="addMinus">
-          <span class="button-pop">+/-</span>
-          <span class="button-text">+/-</span>
-        </div>
-        <div class="button" onclick="onOperatorPress(this)"  value="percent">
-            <span class="button-pop">%</span>
-          <span class="button-text">%</span>
-        </div>
-        <div class="button operator-button" onclick="onOperatorPress(this)"  value="divide">
-          <span class="button-pop">&#247;</span>
-          <span class="button-text">&#247;</span>
-        </div>
-
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="7">
-          <span class="button-pop-alt">7</span>       
-          <span class="button-text">7</span>
-        </div>
-        <div class="button numeral-button addMinus" onclick="onDigitPress(this)" value="8">
-          <span class="button-pop">8</span>
-          <span class="button-text">8</span>
-        </div>
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="9">
-            <span class="button-pop">9</span>
-          <span class="button-text">9</span>
-        </div>
-        <div class="button operator-button" onclick="onOperatorPress(this)"  value="multiply">
-          <span class="button-pop">&#215</span>
-          <span class="button-text">&#215</span>
-        </div>
-
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="4">
-          <span class="button-pop-alt">4</span>
-          <span class="button-text">4</span>
-        </div>
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="5">
-          <span class="button-pop">5</span>
-          <span class="button-text">5</span>
-        </div>
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="6">
-          <span class="button-pop">6</span>
-          <span class="button-text">6</span>
-        </div>
-        <div class="button operator-button" onclick="onOperatorPress(this)"  value="subtract">
-          <span class="button-pop">&#8722;</span>
-          <span class="button-text">&#8722;</span>
-        </div>
-
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="1">
-          <span class="button-pop-alt">1</span>
-          <span class="button-text">1</span>
-        </div>
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="2">
-          <span class="button-pop">2</span>
-          <span class="button-text">2</span>
-        </div>
-        <div class="button numeral-button" onclick="onDigitPress(this)" value="3">
-          <span class="button-pop">3</span>
-          <span class="button-text">3</span>
-        </div>
-        <div class="button operator-button" onclick="onOperatorPress(this)"  value="add">
-          <span class="button-pop">+</span>
-          <span class="button-text">+</span>
-        </div>
-        
-        <div class="button numeral-button zero-button" onclick="onDigitPress(this)" value="0">
-          <span class="button-pop-alt">0</span>
-          <span class="button-text">0</span>
-        </div>
-        <!-- <div onclick="onDigitPress(this)" value="00">00</div> -->
-        <div class="button" onclick="onDigitPress(this)" value="decimal">
-          <span class="button-pop">.</span>
-          <span class="button-text">.</span>
-        </div>
-        <div class="button operator-button" onclick="onOperatorPress(this)"  value="getTotal">
-          <span class="button-pop">=</span>
-          <span class="button-text">=</span>
-        </div>
+        <div class="button"><span class="button-pop">AC</span><span class="button-text">AC</span></div>
+        <div class="button"><span class="button-pop">+/-</span><span class="button-text">+/-</span></div>
+        <div class="button"><span class="button-pop">%</span><span class="button-text">%</span></div>
+        <div class="button"><span class="button-pop">÷</span><span class="button-text">÷</span></div>
+        <div class="button"><span class="button-pop">7</span><span class="button-text">7</span></div>
+        <div class="button"><span class="button-pop">8</span><span class="button-text">8</span></div>
+        <div class="button"><span class="button-pop">9</span><span class="button-text">9</span></div>
+        <div class="button"><span class="button-pop">&#215;</span><span class="button-text">&#215;</span></div>
+        <div class="button"><span class="button-pop">4</span><span class="button-text">4</span></div>
+        <div class="button"><span class="button-pop">5</span><span class="button-text">5</span></div>
+        <div class="button"><span class="button-pop">6</span><span class="button-text">6</span></div>
+        <div class="button"><span class="button-pop">-</span><span class="button-text">-</span></div>
+        <div class="button"><span class="button-pop">1</span><span class="button-text">1</span></div>
+        <div class="button"><span class="button-pop">2</span><span class="button-text">2</span></div>
+        <div class="button"><span class="button-pop">3</span><span class="button-text">3</span></div>
+        <div class="button"><span class="button-pop">+</span><span class="button-text">+</span></div>
+        <div class="button"><span class="button-pop">0</span><span class="button-text">0</span></div>
+        <div class="button"><span class="button-pop">.</span><span class="button-text">.</span></div>
+        <div class="button"><span class="button-pop">=</span><span class="button-text">=</span></div>
       </div>
     </div>
-  </div>
-  <!-- <script src="script.js"></script> -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-  <script src="script.js"></script>
-  
-</body>
+    <script src="animations.js"></script>
+  </body>
 </html>
