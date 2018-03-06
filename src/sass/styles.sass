@@ -1,0 +1,99 @@
+@font-face
+  font-family: "MyWebFont"
+  src: url(../fonts/economica-regular-otf.eot)
+  src: url(../fonts/economica-regular-otf.eot?#iefix) format("embedded-opentype"),
+  url(../fonts/economica-regular-otf.woff2) format("woff2"),
+  url(../fonts/economica-regular-otf.woff) format("woff"),
+  url(../fonts/economica-regular-otf.ttf) format("ttf")
+
+@font-face
+  font-family: "MyWebFontBold"
+  src: url(../fonts/economica-bold-otf.eot)
+  src: url(../fonts/economica-bold-otf.eot?#iefix) format("embedded-opentype"),
+  url(../fonts/economica-bold-otf.woff2) format("woff2"),
+  url(../fonts/economica-bold-otf.woff) format("woff"),
+  url(../fonts/economica-bold-otf.ttf) format("ttf")
+
+*,
+  &:before,
+  &:after,
+    padding: 0
+    margin: 0
+    box-sizing: 0
+    outline: none
+
+body
+  font-family: 'MyWebFont', 'Titillium Web', sans-serif
+  text-rendering: auto
+  text-rendering: geometricPrecision
+
+.calculator
+  display: grid
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translateX(-50%) translateY(-50%)
+  -moz-border-radius: 3px
+  -webkit-border-radius: 3px
+  border-radius: 3px
+  -moz-box-shadow: rgba(23,43,99,0.26) 0 7px 42px
+  -webkit-box-shadow: rgba(23,43,99,0.26) 0 7px 42px
+  box-shadow: rgba(23,43,99,0.26) 0 7px 42px
+  background: repeating-linear-gradient(rgba(205, 237, 229, 0.05) 0px, rgba(205, 237, 229, 0.05) 2px, transparent 2px, transparent 4px),
+  linear-gradient(#8844ee, #004cee)
+
+  &__top
+  border-top-width: 3px
+  text-align: right
+
+  &__bottom
+    display: grid
+    grid-template-columns: repeat(4, 60px)
+    -moz-text-size-adjust: 50%
+    color: #f0e4fa
+    text-align: center
+
+.input-display
+  font-size: 36px
+  line-height: 36px
+  padding: 40px 20px
+  opacity: .85
+  color: #ffffff
+  text-shadow: -2px 0px #24aafc
+
+.button
+  border: none
+  height: 60px
+  width: 60px
+  display: grid
+  cursor: pointer
+  font-family: inherit
+  transition: active 5s ease
+  font-family: 'MyWebFontBold', 'Titillium Web', sans-serif
+  font-size: 20px
+
+  &-text
+    position: absolute
+    justify-self: center
+    align-self: center
+    color: #f0e4fa
+
+  &:nth-child(-n+4) .button-text,
+  &:nth-child(8) .button-text,
+  &:nth-child(12) .button-text,
+  &:nth-child(16) .button-text,
+  &:nth-child(19) .button-text,
+    font-family: 'MyWebFont', 'Titillium Web', sans-serif
+
+  &:nth-child(4),
+  &:nth-child(8),
+  &:nth-child(12),
+  &:nth-child(16),
+  &:nth-child(19),
+    background-color: rgba(36, 170, 252, 0.15)
+
+  &:nth-child(18)
+    grid-column: span 2
+
+
+@import animations

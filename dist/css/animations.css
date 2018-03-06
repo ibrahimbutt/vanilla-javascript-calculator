@@ -1,0 +1,53 @@
+.button-pop {
+  height: 30px;
+  width: 30px;
+  background-color: #98FFA8;
+  display: grid;
+  position: relative;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  left: -15px;
+  top: -15px;
+  color: #98FFA8;
+  -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 10px;
+  transform: scale(0);
+  font-size: 18px; }
+
+.button.active .button-pop,
+.button.active .button-pop-alt {
+  animation: button-pop .75s ease both; }
+
+.button.active {
+  animation: button-pop-bg .75s ease both; }
+
+@keyframes button-pop {
+  0% {
+    transform: scale(0) rotate(45deg); }
+  20% {
+    transform: scale(0.5) rotate(45deg); }
+  40% {
+    transform: scale(0) rotate(45deg);
+    color: #98FFA8; }
+  44% {
+    transform: scale(0) rotate(45deg);
+    color: #004cee; }
+  50% {
+    transform: scale(1) rotate(10deg); }
+  55% {
+    transform: scale(1) rotate(0deg); }
+  90% {
+    transform: scale(1) rotate(0deg); }
+  100% {
+    transform: scale(0) rotate(0deg);
+    color: #004cee; } }
+
+@keyframes button-pop-bg {
+  0% {
+    background-color: none; }
+  50% {
+    background-color: rgba(36, 170, 252, 0.15); }
+  100% {
+    background-color: none; } }
