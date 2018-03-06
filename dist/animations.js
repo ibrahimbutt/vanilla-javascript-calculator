@@ -1,4 +1,4 @@
-document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+const buttonPop = (e) => {
   let button;
   if (e.target.className === 'button') {
     button = e.target;
@@ -10,4 +10,8 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   setTimeout(() => {
     button.classList.remove('active');
   }, 750);
+};
+
+document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+  buttonPop(e);
 });
