@@ -1,3 +1,9 @@
+*:before, *:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: 0;
+  outline: none; }
+
 @font-face {
   font-family: "MyWebFont";
   src: url(../fonts/economica-regular-otf.eot);
@@ -8,72 +14,10 @@
   src: url(../fonts/economica-bold-otf.eot);
   src: url(../fonts/economica-bold-otf.eot?#iefix) format("embedded-opentype"), url(../fonts/economica-bold-otf.woff2) format("woff2"), url(../fonts/economica-bold-otf.woff) format("woff"), url(../fonts/economica-bold-otf.ttf) format("ttf"); }
 
-*:before, *:after {
-  padding: 0;
-  margin: 0;
-  box-sizing: 0;
-  outline: none; }
-
 body {
   font-family: 'MyWebFont', 'Titillium Web', sans-serif;
   text-rendering: auto;
   text-rendering: geometricPrecision; }
-
-.calculator {
-  display: grid;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  -moz-box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
-  -webkit-box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
-  box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
-  background: repeating-linear-gradient(rgba(205, 237, 229, 0.05) 0px, rgba(205, 237, 229, 0.05) 2px, transparent 2px, transparent 4px), linear-gradient(#8844ee, #004cee);
-  border-top-width: 3px;
-  text-align: right; }
-  .calculator__bottom {
-    display: grid;
-    grid-template-columns: repeat(4, 60px);
-    -moz-text-size-adjust: 50%;
-    color: #f0e4fa;
-    text-align: center; }
-
-.input-display {
-  font-size: 36px;
-  line-height: 36px;
-  padding: 40px 20px;
-  opacity: .85;
-  color: #ffffff;
-  text-shadow: -2px 0px #24aafc; }
-
-.button {
-  border: none;
-  height: 60px;
-  width: 60px;
-  display: grid;
-  cursor: pointer;
-  font-family: inherit;
-  transition: active 5s ease;
-  font-family: 'MyWebFontBold', 'Titillium Web', sans-serif;
-  font-size: 20px; }
-  .button-text {
-    position: absolute;
-    justify-self: center;
-    align-self: center;
-    color: #f0e4fa; }
-  .button:nth-child(-n+4) .button-text,
-  .button:nth-child(8) .button-text,
-  .button:nth-child(12) .button-text,
-  .button:nth-child(16) .button-text,
-  .button:nth-child(19) .button-text {
-    font-family: 'MyWebFont', 'Titillium Web', sans-serif; }
-  .button:nth-child(4), .button:nth-child(8), .button:nth-child(12), .button:nth-child(16), .button:nth-child(19) {
-    background-color: rgba(36, 170, 252, 0.15); }
-  .button:nth-child(18) {
-    grid-column: span 2; }
 
 .button-pop {
   height: 30px;
@@ -128,3 +72,60 @@ body {
     background-color: rgba(36, 170, 252, 0.15); }
   100% {
     background-color: none; } }
+
+.calculator {
+  display: grid;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
+  -webkit-box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
+  box-shadow: rgba(23, 43, 99, 0.26) 0 7px 42px;
+  background: repeating-linear-gradient(rgba(205, 237, 229, 0.05) 0px, rgba(205, 237, 229, 0.05) 2px, transparent 2px, transparent 4px), linear-gradient(#8844ee, #004cee); }
+
+.calculator__display {
+  border-top-width: 3px;
+  text-align: right;
+  font-size: 36px;
+  line-height: 36px;
+  padding: 40px 20px;
+  opacity: .85;
+  color: #ffffff;
+  text-shadow: -2px 0px #24aafc; }
+
+.calculator__bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 60px);
+  -moz-text-size-adjust: 50%;
+  color: #f0e4fa;
+  text-align: center; }
+
+.button {
+  border: none;
+  height: 60px;
+  width: 60px;
+  display: grid;
+  cursor: pointer;
+  font-family: inherit;
+  transition: active 5s ease;
+  font-family: 'MyWebFontBold', 'Titillium Web', sans-serif;
+  font-size: 20px; }
+  .button-text {
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    color: #f0e4fa; }
+  .button:nth-child(-n+4) .button-text,
+  .button:nth-child(8) .button-text,
+  .button:nth-child(12) .button-text,
+  .button:nth-child(16) .button-text,
+  .button:nth-child(19) .button-text {
+    font-family: 'MyWebFont', 'Titillium Web', sans-serif; }
+  .button:nth-child(4), .button:nth-child(8), .button:nth-child(12), .button:nth-child(16), .button:nth-child(19) {
+    background-color: rgba(36, 170, 252, 0.15); }
+  .button:nth-child(18) {
+    grid-column: span 2; }
