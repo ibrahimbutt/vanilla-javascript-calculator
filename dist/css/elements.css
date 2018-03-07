@@ -35,7 +35,8 @@
   display: grid;
   grid-template-columns: repeat(4, 60px);
   -moz-text-size-adjust: 50%;
-  color: #f0e4fa; }
+  color: #f0e4fa;
+  overflow: auto; }
 
 .button {
   border: none;
