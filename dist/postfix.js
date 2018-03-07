@@ -23,8 +23,6 @@ var postfixCalculator = function postfixCalculator(outputQueue) {
     }
   }
   return stack[0];
-}; /* eslint no-plusplus: "off" */
-/* eslint comma-dangle: "off" */
-/* eslint no-console: "off" */
+};
 
 exports.default = postfixCalculator;

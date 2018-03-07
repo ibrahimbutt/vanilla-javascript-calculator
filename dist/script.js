@@ -10,7 +10,7 @@ var _postfix2 = _interopRequireDefault(_postfix);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var userInput = ['1', '+', '1'];
+var userInput = ['1', '+', '11', '*', '53'];
 var outputQueue = (0, _shuntingYard2.default)(userInput);
 var result = (0, _postfix2.default)(outputQueue);
 

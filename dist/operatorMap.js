@@ -3,10 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-/* eslint no-plusplus: "off" */
-/* eslint comma-dangle: "off" */
-/* eslint no-console: "off" */
-
 var operatorMap = {
   '^': {
     value: 3,
