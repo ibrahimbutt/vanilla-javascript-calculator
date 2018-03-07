@@ -1,11 +1,6 @@
 const buttonPop = (e) => {
-  let button;
-  if (e.target.className === 'button') {
-    button = e.target;
-  } else {
-    button = e.target.parentElement;
-  }
-
+  let button = e.target;
+  console.log(button)
   button.classList.add('active');
   setTimeout(() => {
     button.classList.remove('active');
@@ -13,5 +8,7 @@ const buttonPop = (e) => {
 };
 
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+  console.log('hello');
   buttonPop(e);
 });
+

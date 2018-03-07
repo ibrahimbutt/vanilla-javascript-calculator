@@ -1,13 +1,8 @@
 'use strict';
 
 var buttonPop = function buttonPop(e) {
-  var button = void 0;
-  if (e.target.className === 'button') {
-    button = e.target;
-  } else {
-    button = e.target.parentElement;
-  }
-
+  var button = e.target;
+  console.log(button);
   button.classList.add('active');
   setTimeout(function () {
     button.classList.remove('active');
@@ -15,5 +10,6 @@ var buttonPop = function buttonPop(e) {
 };
 
 document.getElementById('calculator__bottom').addEventListener('click', function (e) {
+  console.log('hello');
   buttonPop(e);
 });

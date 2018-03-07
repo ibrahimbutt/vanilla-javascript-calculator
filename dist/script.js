@@ -1,17 +1,24 @@
 'use strict';
 
-var _shuntingYard = require('./shuntingYard');
+// import shuntingYard from './shuntingYard';
+// import postfixCalculator from './postfix';
 
-var _shuntingYard2 = _interopRequireDefault(_shuntingYard);
+// const userInput = ['1', '+', '11', '*', '53'];
+// const outputQueue = shuntingYard(userInput);
+// const result = postfixCalculator(outputQueue);
 
-var _postfix = require('./postfix');
 
-var _postfix2 = _interopRequireDefault(_postfix);
+var inputDisplay = document.getElementById('calculator__display');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+document.getElementById('calculator__bottom').addEventListener('click', function (e) {
+  var button = e.target;
+  console.log(button);
 
-var userInput = ['1', '+', '11', '*', '53'];
-var outputQueue = (0, _shuntingYard2.default)(userInput);
-var result = (0, _postfix2.default)(outputQueue);
-
-console.log(result);
+  if (Number(button.innerText) && inputDisplay.innerText === '0') {
+    inputDisplay.innerText = button.innerText;
+    inputDisplay.setAttribute("node-content", button.innerText);
+  } else if (Number(button.innerText)) {
+    inputDisplay.innerText += button.innerText;
+    inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+  }
+});

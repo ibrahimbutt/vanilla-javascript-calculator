@@ -10,84 +10,47 @@ html(lang="en")
     .calculator
       //- #calculator__top.calculator__top
       //-   #inputDisplay.input-display 2018.3
-      #calculator__display.calculator__display  2018
+      #calculator__display.calculator__display(node-content='0') 0
       #calculator__bottom.calculator__bottom
-        .button
-          span.button-pop AC
-          span.button-text AC
+        .button(node-content='AC') AC
           
-        .button
-          span.button-pop +/-
-          span.button-text +/-
+        .button(node-content='+/-') +/-
           
-        .button
-          span.button-pop %
-          span.button-text %
+        .button(node-content='%') %
           
-        .button
-          span.button-pop ÷
-          span.button-text ÷
+        .button(node-content='+') ÷
           
-        .button
-          span.button-pop 7
-          span.button-text 7
+        .button(node-content='7') 7
           
-        .button
-          span.button-pop 8
-          span.button-text 8
+        .button(node-content='8') 8
           
-        .button
-          span.button-pop 9
-          span.button-text 9
+        .button(node-content='9') 9
           
-        .button
-          span.button-pop &#215;
-          span.button-text &#215;
+        .button(node-content='×') ×
           
-        .button
-          span.button-pop 4
-          span.button-text 4
+        .button(node-content='4') 4
           
-        .button
-          span.button-pop 5
-          span.button-text 5
+        .button(node-content='5') 5
 
-        .button
-          span.button-pop 6
-          span.button-text 6
+        .button(node-content='6') 6
           
-        .button
-          span.button-pop -
-          span.button-text -
+        .button(node-content='-') -
           
-        .button
-          span.button-pop 1
-          span.button-text 1
+        .button(node-content='1') 1
           
-        .button
-          span.button-pop 2
-          span.button-text 2
+        .button(node-content='2') 2
           
-        .button
-          span.button-pop 3
-          span.button-text 3
+        .button(node-content='3') 3
           
-        .button
-          span.button-pop +
-          span.button-text +
+        .button(node-content='+') +
           
-        .button
-          span.button-pop 0
-          span.button-text 0
+        .button(node-content='0') 0
           
-        .button
-          span.button-pop .
-          span.button-text .
+        .button(node-content='.') .
           
-        .button
-          span.button-pop =
-          span.button-text =
+        .button(node-content='=') =
           
+    script(src="script.js")
     script(src="animations.js")
         
         

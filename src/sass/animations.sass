@@ -1,24 +1,26 @@
-.button-pop
+.button::before
+  content: attr(node-content)
   height: 30px
   width: 30px
   background-color: #98FFA8
   display: grid
-  position: relative
+  position: absolute
   align-content: center
   justify-content: center
   text-align: center
-  left: -15px
-  top: -15px
+  margin-left: -15px
+  margin-top: -15px
   color: #98FFA8
   -moz-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
   -webkit-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
   box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
   transform: scale(0)
   font-size: 18px
+  z-index: -1
 
 
-.button.active .button-pop,
-.button.active .button-pop-alt
+.button.active::before,
+.button.active::before
   animation: button-pop .75s ease both
 
 .button.active

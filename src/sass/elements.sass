@@ -1,37 +1,62 @@
 .calculator
   &__display
+    font-family: 'MyWebFontBold', 'Titillium Web', sans-serif
     border-top-width: 3px
     text-align: right
-    font-size: 36px
+    font-size: 48px
     line-height: 36px
     padding: 40px 20px
     opacity: .85
     color: #ffffff
-    text-shadow: -2px 0px #24aafc
+    letter-spacing: 1px
+    -webkit-user-select: all
+    -moz-user-select: all
+    -ms-user-select: all
+    user-select: all
+
+    &::before
+      content: attr(node-content)
+      position: absolute
+      right: 22.5px 
+      color: #20a4fd
+      opacity: 0.65
+      width: 100%
+      height: 100%
+      z-index: -5
+    &::after
+      content: attr(node-content)
+      position: absolute
+      right: 16.5px 
+      color: #bd45ba
+      opacity: 0.65      
+      width: 100%
+      height: 100%
+      z-index: -5
 
   &__bottom
     display: grid
     grid-template-columns: repeat(4, 60px)
     -moz-text-size-adjust: 50%
     color: #f0e4fa
-    text-align: center
 
 .button
   border: none
   height: 60px
   width: 60px
-  display: grid
   cursor: pointer
   font-family: inherit
   transition: active 5s ease
   font-family: 'MyWebFontBold', 'Titillium Web', sans-serif
   font-size: 20px
-
-  &-text
-    position: absolute
-    justify-self: center
-    align-self: center
-    color: #f0e4fa
+  color: #f0e4fa
+  display: grid
+  align-content: center
+  justify-content: center
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  z-index: 10
 
   &:nth-child(-n+4) .button-text,
   &:nth-child(8) .button-text,
