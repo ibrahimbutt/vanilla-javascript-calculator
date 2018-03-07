@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var pug = require('gulp-pug');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync').create();
+var babel = require("gulp-babel");
 
 gulp.task('pug', function buildHTML() {
   return gulp.src('src/pug/*.pug')
@@ -30,6 +31,12 @@ gulp.task('browserSync', function () {
     },
   })
 })
+
+gulp.task("default", function () {
+  return gulp.src("src/app.js")
+    .pipe(babel())
+    .pipe(gulp.dest("dist"));
+});
 
 gulp.task('watch', ['pug', 'sass', 'browserSync'], function () {
   gulp.watch('src/pug/*.pug', ['pug']);
