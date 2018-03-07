@@ -32,8 +32,8 @@ gulp.task('browserSync', function () {
   })
 })
 
-gulp.task("default", function () {
-  return gulp.src("src/app.js")
+gulp.task("babel", function () {
+  return gulp.src("src/js/*.js")
     .pipe(babel())
     .pipe(gulp.dest("dist"));
 });
@@ -44,4 +44,5 @@ gulp.task('watch', ['pug', 'sass', 'browserSync'], function () {
   gulp.watch('dist/*.html', browserSync.reload);
   gulp.watch('src/sass/*.sass', ['sass']);
   gulp.watch('src/js/*.js', browserSync.reload);
+  gulp.watch('src/js/*.js', ['babel']);
 });

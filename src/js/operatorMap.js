@@ -1,7 +1,3 @@
-/* eslint no-plusplus: "off" */
-/* eslint comma-dangle: "off" */
-/* eslint no-console: "off" */
-
 const operatorMap = {
   '^': {
     value: 3,
