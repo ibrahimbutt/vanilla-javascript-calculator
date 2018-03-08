@@ -58,13 +58,7 @@
   -ms-user-select: none;
   user-select: none;
   z-index: 10; }
-  .button:nth-child(-n+4) .button-text,
-  .button:nth-child(8) .button-text,
-  .button:nth-child(12) .button-text,
-  .button:nth-child(16) .button-text,
-  .button:nth-child(19) .button-text {
-    font-family: 'MyWebFont', 'Titillium Web', sans-serif; }
   .button:nth-child(4), .button:nth-child(8), .button:nth-child(12), .button:nth-child(16), .button:nth-child(19) {
     background-color: rgba(36, 170, 252, 0.15); }
-  .button:nth-child(18) {
+  .button:nth-child(17) {
     grid-column: span 2; }
