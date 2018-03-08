@@ -21,9 +21,6 @@
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   overflow: visible; }
 
-.button.active {
-  z-index: 500; }
-
 .button:nth-child(1)::before, .button:nth-child(2)::before, .button:nth-child(3)::before, .button:nth-child(4)::before {
   -webkit-clip-path: polygon(0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%);
   clip-path: polygon(0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%); }
@@ -35,22 +32,20 @@
 .button:nth-child(1)::before, .button:nth-child(5)::before, .button:nth-child(9)::before, .button:nth-child(13)::before, .button:nth-child(17)::before {
   margin-left: 57px; }
 
-.button.active::before,
-.button.active::before {
-  animation: button-pop .75s ease both;
-  height: 30px;
-  width: 30px;
-  margin-left: -15px;
-  margin-top: -15px;
-  -webkit-clip-path: none;
-  clip-path: none;
-  opacity: 1; }
-
-.button.active:nth-child(1)::before, .button.active:nth-child(5)::before, .button.active:nth-child(9)::before, .button.active:nth-child(13)::before, .button.active:nth-child(17)::before {
-  margin-left: 44px; }
-
 .button.active {
+  z-index: 500;
   animation: button-pop-bg .75s ease both; }
+  .button.active::before {
+    animation: button-pop .75s ease both;
+    height: 30px;
+    width: 30px;
+    margin-left: -15px;
+    margin-top: -15px;
+    -webkit-clip-path: none;
+    clip-path: none;
+    opacity: 1; }
+  .button.active:nth-child(1)::before, .button.active:nth-child(5)::before, .button.active:nth-child(9)::before, .button.active:nth-child(13)::before, .button.active:nth-child(17)::before {
+    margin-left: 44px; }
 
 @keyframes button-pop {
   0% {

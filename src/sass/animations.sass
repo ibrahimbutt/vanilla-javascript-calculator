@@ -1,29 +1,26 @@
-.button::before
-  content: attr(node-content)
-  height: 6px
-  width: 6px
-  background-color: #98FFA8
-  display: grid
-  position: absolute
-  align-content: center
-  justify-content: center
-  text-align: center
-  margin-left: -3px
-  margin-top: -3px
-  color: #98FFA8
-  -moz-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
-  -webkit-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
-  box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
-  font-size: 18px
-  z-index: -1
-  transform: rotate(45deg)
-  -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%)
-  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%)
-  overflow: visible
-
 .button
-  &.active
-    z-index: 500
+  &::before
+    content: attr(node-content)
+    height: 6px
+    width: 6px
+    background-color: #98FFA8
+    display: grid
+    position: absolute
+    align-content: center
+    justify-content: center
+    text-align: center
+    margin-left: -3px
+    margin-top: -3px
+    color: #98FFA8
+    -moz-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
+    -webkit-box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
+    box-shadow: rgba(0,0,0,0.25) 0px 4px 10px
+    font-size: 18px
+    z-index: -1
+    transform: rotate(45deg)
+    -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%)
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%)
+    overflow: visible
   &:nth-child(1),
   &:nth-child(2),
   &:nth-child(3),
@@ -44,30 +41,28 @@
     &::before
       margin-left: 57px
 
-.button.active::before,
-.button.active::before
-  animation: button-pop .75s ease both
-  height: 30px
-  width: 30px
-  margin-left: -15px
-  margin-top: -15px
-  -webkit-clip-path: none
-  clip-path: none
-  opacity: 1
+  &.active
+    z-index: 500
+    animation: button-pop-bg .75s ease both
 
-.button.active
-  &:nth-child(1),
-  &:nth-child(5),
-  &:nth-child(9),
-  &:nth-child(13),
-  &:nth-child(17)
     &::before
-      margin-left: 44px
+      animation: button-pop .75s ease both
+      height: 30px
+      width: 30px
+      margin-left: -15px
+      margin-top: -15px
+      -webkit-clip-path: none
+      clip-path: none
+      opacity: 1
+    
+    &:nth-child(1),
+    &:nth-child(5),
+    &:nth-child(9),
+    &:nth-child(13),
+    &:nth-child(17)
+      &::before
+        margin-left: 44px
       
-
-.button.active
-  animation: button-pop-bg .75s ease both
-
 @keyframes button-pop 
   0% 
     transform: scale(0) rotate(45deg)
