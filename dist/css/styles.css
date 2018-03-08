@@ -94,6 +94,33 @@ body {
   100% {
     background-color: none; } }
 
+.button.active::after {
+  display: block;
+  content: '';
+  width: 3px;
+  height: 3px;
+  top: -1px;
+  position: absolute;
+  background-color: #98FFA8;
+  z-index: -1;
+  animation: border-flow 0.75s ease infinite; }
+
+@keyframes border-flow {
+  0% {
+    transform: translateX(0); }
+  25% {
+    opacity: 1;
+    transform: translateX(60px); }
+  50% {
+    opacity: 1;
+    transform: translateY(60px) translateX(60px); }
+  75% {
+    opacity: 1;
+    transform: translateX(0px) translateY(60px); }
+  100% {
+    opacity: 0;
+    transform: translateY(0); } }
+
 .calculator {
   display: grid;
   position: absolute;
