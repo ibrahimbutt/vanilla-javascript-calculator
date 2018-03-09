@@ -17,14 +17,14 @@ var operatorMap = {
       return Math.pow(leftOperand, rightOperand);
     }
   },
-  '*': {
+  '×': {
     value: 3,
     association: 'left',
     operate: function operate(leftOperand, rightOperand) {
       return leftOperand * rightOperand;
     }
   },
-  '/': {
+  '÷': {
     value: 3,
     association: 'left',
     operate: function operate(leftOperand, rightOperand) {
@@ -55,6 +55,7 @@ var operatorMap = {
 
 // Shunting Yard Algorithm
 // Takes an array as a paramater
+
 var shuntingYard = function shuntingYard(userInput) {
   var outputQueue = [];
   var operatorStack = [];
@@ -126,20 +127,38 @@ var postfixCalculator = function postfixCalculator(outputQueue) {
 };
 
 var inputDisplay = document.getElementById('calculator__display');
+var store = [];
+var operatorPressedLast = false;
 
 document.getElementById('calculator__bottom').addEventListener('click', function (e) {
-
-  // const userInput = ['1', '+', '11', '*', '53'];
-  // const outputQueue = shuntingYard(userInput);
-  // const result = postfixCalculator(outputQueue);
   var button = e.target;
   buttonPop(button);
+  console.log(button.getAttribute("node-content"));
 
   if (Number(button.innerText) && inputDisplay.innerText === '0') {
     inputDisplay.innerText = button.innerText;
     inputDisplay.setAttribute("node-content", button.innerText);
   } else if (Number(button.innerText)) {
-    inputDisplay.innerText += button.innerText;
+    if (operatorPressedLast) {
+      inputDisplay.innerText = button.innerText;
+    } else {
+      inputDisplay.innerText += button.innerText;
+    }
     inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+    operatorPressedLast = false;
+  } else {
+    if (operatorPressedLast) {
+      store.pop();
+      store.push(button.getAttribute("node-content"));
+    } else {
+      store.push(inputDisplay.innerText);
+      var userInput = store;
+      var outputQueue = shuntingYard(userInput);
+      store = [postfixCalculator(outputQueue)];
+      inputDisplay.innerText = store[0];
+      store.push(button.getAttribute("node-content"));
+      inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+      operatorPressedLast = true;
+    }
   }
 });
