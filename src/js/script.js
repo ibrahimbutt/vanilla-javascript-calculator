@@ -135,37 +135,45 @@ const postfixCalculator = (outputQueue) => {
 
 const inputDisplay = document.getElementById('calculator__display');
 let store = [];
-let operatorPressedLast  = false;
+let operatorPressedLast = false;
 
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   let button = e.target
   buttonPop(button);
-  console.log(button.getAttribute("node-content"));
+  // console.log(button.getAttribute("node-content"));
 
   if (Number(button.innerText) && inputDisplay.innerText === '0') {
     inputDisplay.innerText = button.innerText;
-    inputDisplay.setAttribute("node-content", button.innerText);
+    // inputDisplay.setAttribute("node-content", button.innerText);
   } else if (Number(button.innerText)) {
     if (operatorPressedLast) {
       inputDisplay.innerText = button.innerText;
     } else {
       inputDisplay.innerText += button.innerText;
     }
-    inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+    // inputDisplay.setAttribute("node-content", inputDisplay.innerText);
     operatorPressedLast = false;
   } else {
     if (operatorPressedLast) {
       store.pop()
       store.push(button.getAttribute("node-content"));
-    } else {
+    } else if (operatorMap.hasOwnProperty(button.getAttribute("node-content"))) {
       store.push(inputDisplay.innerText);
       const userInput = store;
       const outputQueue = shuntingYard(userInput);
       store = [postfixCalculator(outputQueue)];
       inputDisplay.innerText = store[0];
       store.push(button.getAttribute("node-content"));
-      inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+      // inputDisplay.setAttribute("node-content", inputDisplay.innerText);
       operatorPressedLast = true;
+    } else if (button.getAttribute("node-content") === '%') {
+      inputDisplay.innerText /= 100;
+    } else if (button.getAttribute("node-content") === 'AC') {
+      inputDisplay.innerText = '0';
+      // inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+      store = [];
+      operatorPressedLast = false;
     }
   }
+  inputDisplay.setAttribute("node-content", inputDisplay.innerText);
 });
