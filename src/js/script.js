@@ -144,32 +144,39 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   if (Number(button.innerText) && inputDisplay.innerText === '0') {
     inputDisplay.innerText = button.innerText;
   } else if (Number(button.innerText) || button.innerText === '0' ||
-  (button.innerText === '.' && !inputDisplay.innerText.includes('.'))) {
+    (button.innerText === '.' && !inputDisplay.innerText.includes('.'))) {
     if (operatorPressedLast) {
       inputDisplay.innerText = button.innerText;
     } else {
       inputDisplay.innerText += button.innerText;
     }
     operatorPressedLast = false;
-  } else {
-    if (operatorPressedLast) {
-      store.pop();
-      store.push(button.innerText);
-    } else if (operatorMap.hasOwnProperty(button.innerText)) {
-      store.push(inputDisplay.innerText);
-      const userInput = store;
-      const outputQueue = shuntingYard(userInput);
-      store = [postfixCalculator(outputQueue)];
-      inputDisplay.innerText = store[0];
-      store.push(button.innerText);
-      operatorPressedLast = true;
-    } else if (button.innerText === '%') {
-      inputDisplay.innerText /= 100;
-    } else if (button.innerText === 'AC') {
-      inputDisplay.innerText = '0';
-      store = [];
-      operatorPressedLast = false;
-    }
+  } else if (operatorPressedLast) {
+    store.pop();
+    store.push(button.innerText);
+  } else if (operatorMap.hasOwnProperty(button.innerText)) {
+    store.push(inputDisplay.innerText);
+    const userInput = store;
+    const outputQueue = shuntingYard(userInput);
+    store = [postfixCalculator(outputQueue)];
+    inputDisplay.innerText = store[0];
+    store.push(button.innerText);
+    operatorPressedLast = true;
+  } else if (button.innerText === '%') {
+    inputDisplay.innerText /= 100;
+  } else if (button.innerText === '+/-') {
+    inputDisplay.innerText = '-' + inputDisplay.innerText;
+  } else if (button.innerText === '=') {
+    store.push(inputDisplay.innerText);
+    const userInput = store;
+    const outputQueue = shuntingYard(userInput);
+    store = [postfixCalculator(outputQueue)];
+    inputDisplay.innerText = store[0];
+  } else if (button.innerText === 'AC') {
+    inputDisplay.innerText = '0';
+    store = [];
+    operatorPressedLast = false;
   }
+
   inputDisplay.setAttribute("node-content", inputDisplay.innerText);
 });
