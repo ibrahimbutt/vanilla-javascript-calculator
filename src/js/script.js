@@ -53,7 +53,6 @@ const operatorMap = {
 
 // Shunting Yard Algorithm
 // Takes an array as a paramater
-
 const shuntingYard = (userInput) => {
   const outputQueue = [];
   const operatorStack = [];
@@ -131,7 +130,6 @@ const postfixCalculator = (outputQueue) => {
   }
   return stack[0];
 };
-
 
 const inputDisplay = document.getElementById('calculator__display');
 let store = [];

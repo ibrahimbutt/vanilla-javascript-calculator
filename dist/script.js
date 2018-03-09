@@ -55,7 +55,6 @@ var operatorMap = {
 
 // Shunting Yard Algorithm
 // Takes an array as a paramater
-
 var shuntingYard = function shuntingYard(userInput) {
   var outputQueue = [];
   var operatorStack = [];
