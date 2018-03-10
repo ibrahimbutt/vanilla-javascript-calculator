@@ -18,34 +18,6 @@ var handlers = {
     }
   },
   format: function format(value) {
-    // let inlcudesDecimal = false;
-    // const afterDecimalPortionOfValue = value
-    //   .split('')
-    //   .map((x) => {
-    //     if (x === '.') {
-    //       inlcudesDecimal = true;
-    //       return x;
-    //     } else if (inlcudesDecimal) {
-    //       return x;
-    //     }
-    //   })
-    //   .join('');
-
-    // const valueWithCommas = value
-    //   // Remove portion after decimals
-    //   .replace(/\..*/, '')
-    //   .split('')
-    //   .reverse()
-    //   .map((x, i) => {
-    //     return (i % 3 === 0 ? x + ',' : x);
-    //   })
-    //   .reverse()
-    //   .join('')
-    //   // Remove extra comma
-    //   .slice(0, -1);
-
-    // value = valueWithCommas + afterDecimalPortionOfValue;
-
     if (value.includes(',') && value.replace(/,/g, '').length >= 9) {
       return String(Number(value.replace(/[,]/g, '')).toExponential(2)).replace(/\.00/, '').replace(/\+/, '');
       // console.log(String(Number(value.replace(/,/g, '')).toExponential(2)))
