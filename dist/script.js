@@ -18,28 +18,44 @@ var handlers = {
     }
   },
   format: function format(value) {
-    var inlcudesDecimal = false;
-    var afterDecimalPortionOfValue = value.split('').map(function (x) {
-      if (x === '.') {
-        inlcudesDecimal = true;
-        return x;
-      } else if (inlcudesDecimal) {
-        return x;
-      }
-    }).join('');
+    // let inlcudesDecimal = false;
+    // const afterDecimalPortionOfValue = value
+    //   .split('')
+    //   .map((x) => {
+    //     if (x === '.') {
+    //       inlcudesDecimal = true;
+    //       return x;
+    //     } else if (inlcudesDecimal) {
+    //       return x;
+    //     }
+    //   })
+    //   .join('');
 
-    var valueWithCommas = value
-    // Remove portion after decimals
-    .replace(/\..*/, '').split('').reverse().map(function (x, i) {
-      return i % 3 === 0 ? x + ',' : x;
-    }).reverse().join('')
-    // Remove extra comma
-    .slice(0, -1);
+    // const valueWithCommas = value
+    //   // Remove portion after decimals
+    //   .replace(/\..*/, '')
+    //   .split('')
+    //   .reverse()
+    //   .map((x, i) => {
+    //     return (i % 3 === 0 ? x + ',' : x);
+    //   })
+    //   .reverse()
+    //   .join('')
+    //   // Remove extra comma
+    //   .slice(0, -1);
 
-    return valueWithCommas + afterDecimalPortionOfValue;
+    // value = valueWithCommas + afterDecimalPortionOfValue;
+
+    if (value.includes(',') && value.replace(/,/g, '').length >= 9) {
+      return String(Number(value.replace(/[,]/g, '')).toExponential(2)).replace(/\.00/, '').replace(/\+/, '');
+      // console.log(String(Number(value.replace(/,/g, '')).toExponential(2)))
+    } else if (Number(value) > 999999999) {
+      return String(Number(value).toExponential(2)).replace(/\.00/, '').replace(/\+/, '');
+    } else {
+      return String(Number(value.replace(/,/g, '')).toLocaleString());
+    }
   }
 };
-
 var view = {
   buttonAnimation: function buttonAnimation(buttonPressed) {
     buttonPressed.classList.add('active');
@@ -54,7 +70,12 @@ var view = {
     inputDisplay.textContent = buttonPressed;
   },
   addToDisplay: function addToDisplay(buttonPressed) {
-    var newDisplayText = inputDisplay.textContent.replace(/,/g, '') + buttonPressed;
+    var newDisplayText = void 0;
+    if (inputDisplay.textContent.includes('e')) {
+      newDisplayText = Number(inputDisplay.textContent) + buttonPressed;
+    } else {
+      newDisplayText = inputDisplay.textContent.replace(/,/g, '') + buttonPressed;
+    }
     var newDisplayTextFormatted = handlers.format(newDisplayText);
     this.setDisplay(newDisplayTextFormatted);
   }
@@ -65,9 +86,10 @@ var inputDisplay = document.getElementById('calculator__display');
 document.getElementById('calculator__bottom').addEventListener('click', function (e) {
   var buttonPressed = e.target.textContent;
 
-  if (Number(buttonPressed) || buttonPressed === '.') {
+  if (Number(buttonPressed) || buttonPressed === '.' || buttonPressed === '0') {
     handlers.onDigitPress(buttonPressed);
   }
 
+  view.buttonAnimation(e.target);
   view.updateChromaticEffect();
 });
