@@ -10,43 +10,43 @@ html(lang="en")
     .calculator
       #calculator__display.calculator__display(node-content='0') 0
       #calculator__bottom.calculator__bottom
-        .button(node-content='AC') AC
+        .button(node-content='AC' onclick='handlers.clearAll(this)') AC
           
-        .button(node-content='+/-') +/-
+        .button(node-content='+/-' onclick='handlers.onOperatorPress(this)') +/-
           
-        .button(node-content='%') %
+        .button(node-content='%' onclick='handlers.onPercentPress(this)') %
           
-        .button(node-content='÷') ÷
+        .button(node-content='÷' onclick='handlers.onOperatorPress(this)') ÷
           
-        .button(node-content='7') 7
+        .button(node-content='7' onclick='handlers.onDigitOrDecimalpress(this)') 7
           
-        .button(node-content='8') 8
+        .button(node-content='8' onclick='handlers.onDigitOrDecimalpress(this)') 8
           
-        .button(node-content='9') 9
+        .button(node-content='9' onclick='handlers.onDigitOrDecimalpress(this)') 9
           
-        .button(node-content='×') ×
+        .button(node-content='×' onclick='handlers.onOperatorPress(this)') ×
           
-        .button(node-content='4') 4
+        .button(node-content='4' onclick='handlers.onDigitOrDecimalpress(this)') 4
           
-        .button(node-content='5') 5
+        .button(node-content='5' onclick='handlers.onDigitOrDecimalpress(this)') 5
 
-        .button(node-content='6') 6
+        .button(node-content='6' onclick='handlers.onDigitOrDecimalpress(this)') 6
           
-        .button(node-content='-') -
+        .button(node-content='-' onclick='handlers.onOperatorPress(this)') -
           
-        .button(node-content='1') 1
+        .button(node-content='1' onclick='handlers.onDigitOrDecimalpress(this)') 1
           
-        .button(node-content='2') 2
+        .button(node-content='2' onclick='handlers.onDigitOrDecimalpress(this)') 2
           
-        .button(node-content='3') 3
+        .button(node-content='3' onclick='handlers.onDigitOrDecimalpress(this)') 3
           
-        .button(node-content='+') +
+        .button(node-content='+' onclick='handlers.onOperatorPress(this)') +
           
-        .button(node-content='0') 0
+        .button(node-content='0' onclick='handlers.onDigitOrDecimalpress(this)') 0
           
-        .button(node-content='.') .
+        .button(node-content='.' onclick='handlers.onDigitOrDecimalpress(this)') .
           
-        .button(node-content='=') =
+        .button(node-content='=' onclick='handlers.onEqualPress(this)') =
           
     script(src="script.js")
         

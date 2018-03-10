@@ -1,10 +1,66 @@
 // Animation Activation
 const buttonPop = (button) => {
   button.classList.add('active');
+  inputDisplay.setAttribute("node-content", inputDisplay.innerText);
   setTimeout(() => {
     button.classList.remove('active');
   }, 750);
 };
+
+const handlers = {
+  store: [],
+  operatorPressedLast: false,
+  clearAll(button) {
+    inputDisplay.innerText = '0';
+    this.store = [];
+    this.operatorPressedLast = false;
+    buttonPop(button);
+  },
+  onDigitOrDecimalpress(button) {
+    if (inputDisplay.textContent === '0' && button.textContent === '.') {
+      inputDisplay.textContent += button.textContent;
+    } else if (inputDisplay.textContent === '0' ||
+      this.operatorPressedLast ||
+      (inputDisplay.textContent === '0' && button.textContent === '0')
+    ) {
+      inputDisplay.textContent = button.textContent;
+    } else if (button.textContent === '.' && inputDisplay.textContent.includes('.')) {
+      this.operatorPressedLast = false;
+      return false;
+    } else {
+      inputDisplay.textContent += button.textContent;
+    }
+    this.operatorPressedLast = false;
+    buttonPop(button);
+  },
+  onOperatorPress(button) {
+    if (this.operatorPressedLast) {
+        this.store.pop();
+        this.store.push(button.textContent);
+    } else {
+      this.store.push(inputDisplay.textContent);
+      const userInput = this.store;
+      const outputQueue = shuntingYard(userInput);
+      this.store = [postfixCalculator(outputQueue)];
+      inputDisplay.textContent = this.store[0];
+      this.store.push(button.textContent);
+      this.operatorPressedLast = true;
+    }
+    buttonPop(button);
+  },
+  onPercentPress(button) {
+    inputDisplay.textContent = inputDisplay.textContent / 100;
+    buttonPop(button);
+  },
+  onEqualPress(button) {
+    this.store.push(inputDisplay.textContent);
+    const userInput = this.store;
+    const outputQueue = shuntingYard(userInput);
+    this.store = [postfixCalculator(outputQueue)];
+    inputDisplay.textContent = this.store[0];
+    buttonPop(button);
+  }
+}
 
 // Operator Map for algorithms
 const operatorMap = {
@@ -132,49 +188,45 @@ const postfixCalculator = (outputQueue) => {
 };
 
 const inputDisplay = document.getElementById('calculator__display');
-let store = [];
-let operatorPressedLast = false;
+// let store = [];
+// let operatorPressedLast = false;
 
-document.getElementById('calculator__bottom').addEventListener('click', (e) => {
-  let button = e.target
-  buttonPop(button);
+// document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+//   let button = e.target
+//   buttonPop(button);
 
-  if (Number(button.innerText) && inputDisplay.innerText === '0') {
-    inputDisplay.innerText = button.innerText;
-  } else if (Number(button.innerText) || button.innerText === '0' ||
-    (button.innerText === '.' && !inputDisplay.innerText.includes('.'))) {
-    if (operatorPressedLast) {
-      inputDisplay.innerText = button.innerText;
-    } else {
-      inputDisplay.innerText += button.innerText;
-    }
-    operatorPressedLast = false;
-  } else if (operatorPressedLast) {
-    store.pop();
-    store.push(button.innerText);
-  } else if (operatorMap.hasOwnProperty(button.innerText)) {
-    store.push(inputDisplay.innerText);
-    const userInput = store;
-    const outputQueue = shuntingYard(userInput);
-    store = [postfixCalculator(outputQueue)];
-    inputDisplay.innerText = store[0];
-    store.push(button.innerText);
-    operatorPressedLast = true;
-  } else if (button.innerText === '%') {
-    inputDisplay.innerText /= 100;
-  } else if (button.innerText === '+/-') {
-    inputDisplay.innerText = '-' + inputDisplay.innerText;
-  } else if (button.innerText === '=') {
-    store.push(inputDisplay.innerText);
-    const userInput = store;
-    const outputQueue = shuntingYard(userInput);
-    store = [postfixCalculator(outputQueue)];
-    inputDisplay.innerText = store[0];
-  } else if (button.innerText === 'AC') {
-    inputDisplay.innerText = '0';
-    store = [];
-    operatorPressedLast = false;
-  }
+//   if (Number(button.innerText) && inputDisplay.innerText === '0') {
+//     inputDisplay.innerText = button.innerText;
+//   } else if (Number(button.innerText) || button.innerText === '0' ||
+//     (button.innerText === '.' && !inputDisplay.innerText.includes('.'))) {
+//     if (operatorPressedLast) {
+//       inputDisplay.innerText = button.innerText;
+//     } else {
+//       inputDisplay.innerText += button.innerText;
+//     }
+//     operatorPressedLast = false;
+//   } else if (operatorPressedLast) {
+//     store.pop();
+//     store.push(button.innerText);
+//   } else if (operatorMap.hasOwnProperty(button.innerText)) {
+//     store.push(inputDisplay.innerText);
+//     const userInput = store;
+//     const outputQueue = shuntingYard(userInput);
+//     store = [postfixCalculator(outputQueue)];
+//     inputDisplay.innerText = store[0];
+//     store.push(button.innerText);
+//     operatorPressedLast = true;
+//   } else if (button.innerText === '%') {
+//     inputDisplay.innerText /= 100;
+//   } else if (button.innerText === '+/-') {
+//     inputDisplay.innerText = '-' + inputDisplay.innerText;
+//   } else if (button.innerText === '=') {
+//     store.push(inputDisplay.innerText);
+//     const userInput = store;
+//     const outputQueue = shuntingYard(userInput);
+//     store = [postfixCalculator(outputQueue)];
+//     inputDisplay.innerText = store[0];
+//   } 
 
-  inputDisplay.setAttribute("node-content", inputDisplay.innerText);
-});
+//   inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+// });
