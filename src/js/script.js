@@ -1,22 +1,25 @@
-// Animation Activation
-const buttonPop = (button) => {
-  button.classList.add('active');
-  inputDisplay.setAttribute("node-content", inputDisplay.innerText);
-  setTimeout(() => {
-    button.classList.remove('active');
-  }, 750);
-};
-
 const handlers = {
   store: [],
   operatorPressedLast: false,
+  buttonAnimation(button) {
+    button.classList.add('active');
+    inputDisplay.setAttribute("node-content", inputDisplay.innerText);
+    setTimeout(() => {
+      button.classList.remove('active');
+    }, 750);
+  },
   clearAll(button) {
     inputDisplay.innerText = '0';
     this.store = [];
     this.operatorPressedLast = false;
-    buttonPop(button);
+    this.buttonAnimation(button);
   },
   onDigitOrDecimalpress(button) {
+    inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
+    if (inputDisplay.textContent.length >= 9) {
+      inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
+      return false;
+    }
     if (inputDisplay.textContent === '0' && button.textContent === '.') {
       inputDisplay.textContent += button.textContent;
     } else if (inputDisplay.textContent === '0' ||
@@ -30,13 +33,18 @@ const handlers = {
     } else {
       inputDisplay.textContent += button.textContent;
     }
+    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
     this.operatorPressedLast = false;
-    buttonPop(button);
+    this.buttonAnimation(button);
   },
   onOperatorPress(button) {
-    if (this.operatorPressedLast) {
-        this.store.pop();
-        this.store.push(button.textContent);
+    inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
+    if (inputDisplay.textContent === '0') {
+      return false;
+    }
+    else if (this.operatorPressedLast) {
+      this.store.pop();
+      this.store.push(button.textContent);
     } else {
       this.store.push(inputDisplay.textContent);
       const userInput = this.store;
@@ -46,21 +54,38 @@ const handlers = {
       this.store.push(button.textContent);
       this.operatorPressedLast = true;
     }
-    buttonPop(button);
+    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
+    this.buttonAnimation(button);
   },
   onPercentPress(button) {
+    inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
     inputDisplay.textContent = inputDisplay.textContent / 100;
-    buttonPop(button);
+    this.buttonAnimation(button);
+  },
+  onPlusMinusPress(button) {
+    inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
+    if (Number(inputDisplay.textContent) > 0) {
+      inputDisplay.textContent = inputDisplay.textContent.replace(/[-+]/, '');
+      inputDisplay.textContent = '-' + inputDisplay.textContent;
+    } else if (Number(inputDisplay.textContent) < 0) {
+      inputDisplay.textContent = inputDisplay.textContent.replace(/[-+]/, '');
+    }
+    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
+    this.buttonAnimation(button);
   },
   onEqualPress(button) {
+    inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
     this.store.push(inputDisplay.textContent);
     const userInput = this.store;
     const outputQueue = shuntingYard(userInput);
     this.store = [postfixCalculator(outputQueue)];
     inputDisplay.textContent = this.store[0];
-    buttonPop(button);
+    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
+    this.buttonAnimation(button);
   }
 }
+
+const inputDisplay = document.getElementById('calculator__display');
 
 // Operator Map for algorithms
 const operatorMap = {
@@ -186,47 +211,3 @@ const postfixCalculator = (outputQueue) => {
   }
   return stack[0];
 };
-
-const inputDisplay = document.getElementById('calculator__display');
-// let store = [];
-// let operatorPressedLast = false;
-
-// document.getElementById('calculator__bottom').addEventListener('click', (e) => {
-//   let button = e.target
-//   buttonPop(button);
-
-//   if (Number(button.innerText) && inputDisplay.innerText === '0') {
-//     inputDisplay.innerText = button.innerText;
-//   } else if (Number(button.innerText) || button.innerText === '0' ||
-//     (button.innerText === '.' && !inputDisplay.innerText.includes('.'))) {
-//     if (operatorPressedLast) {
-//       inputDisplay.innerText = button.innerText;
-//     } else {
-//       inputDisplay.innerText += button.innerText;
-//     }
-//     operatorPressedLast = false;
-//   } else if (operatorPressedLast) {
-//     store.pop();
-//     store.push(button.innerText);
-//   } else if (operatorMap.hasOwnProperty(button.innerText)) {
-//     store.push(inputDisplay.innerText);
-//     const userInput = store;
-//     const outputQueue = shuntingYard(userInput);
-//     store = [postfixCalculator(outputQueue)];
-//     inputDisplay.innerText = store[0];
-//     store.push(button.innerText);
-//     operatorPressedLast = true;
-//   } else if (button.innerText === '%') {
-//     inputDisplay.innerText /= 100;
-//   } else if (button.innerText === '+/-') {
-//     inputDisplay.innerText = '-' + inputDisplay.innerText;
-//   } else if (button.innerText === '=') {
-//     store.push(inputDisplay.innerText);
-//     const userInput = store;
-//     const outputQueue = shuntingYard(userInput);
-//     store = [postfixCalculator(outputQueue)];
-//     inputDisplay.innerText = store[0];
-//   } 
-
-//   inputDisplay.setAttribute("node-content", inputDisplay.innerText);
-// });
