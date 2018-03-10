@@ -19,7 +19,6 @@ var handlers = {
   onDigitOrDecimalpress: function onDigitOrDecimalpress(button) {
     inputDisplay.textContent = inputDisplay.textContent.replace(/,/g, '');
     if (inputDisplay.textContent.length >= 9) {
-      inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
       return false;
     }
     if (inputDisplay.textContent === '0' && button.textContent === '.') {
@@ -32,7 +31,6 @@ var handlers = {
     } else {
       inputDisplay.textContent += button.textContent;
     }
-    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
     this.operatorPressedLast = false;
     this.buttonAnimation(button);
   },
@@ -52,7 +50,6 @@ var handlers = {
       this.store.push(button.textContent);
       this.operatorPressedLast = true;
     }
-    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
     this.buttonAnimation(button);
   },
   onPercentPress: function onPercentPress(button) {
@@ -68,7 +65,6 @@ var handlers = {
     } else if (Number(inputDisplay.textContent) < 0) {
       inputDisplay.textContent = inputDisplay.textContent.replace(/[-+]/, '');
     }
-    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
     this.buttonAnimation(button);
   },
   onEqualPress: function onEqualPress(button) {
@@ -78,7 +74,6 @@ var handlers = {
     var outputQueue = shuntingYard(userInput);
     this.store = [postfixCalculator(outputQueue)];
     inputDisplay.textContent = this.store[0];
-    inputDisplay.textContent = Number(inputDisplay.textContent).toLocaleString('en-US');
     this.buttonAnimation(button);
   }
 };
