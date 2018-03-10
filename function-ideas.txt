@@ -1,0 +1,4 @@
+setDisplay();
+addToDisplay();
+calculate();
+formatNumber();
