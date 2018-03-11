@@ -115,6 +115,13 @@ var handlers = {
       // Use set display, to acoid uncessesary steps in addToDisplay().
       // More to the point.
       view.setDisplay('0' + buttonPressed);
+    } else if (inputDisplay.textContent.includes('.') && buttonPressed === '.') {
+      return false;
+    } else if (buttonPressed === '.') {
+      // toLocaleString will remove decimal
+      // E.g. if inputDisplay is 56 button press is a decimal
+      // format() will remove trailing decimal point.
+      view.setDisplay(inputDisplay.textContent + buttonPressed);
     } else {
       view.addToDisplay(buttonPressed);
     }
