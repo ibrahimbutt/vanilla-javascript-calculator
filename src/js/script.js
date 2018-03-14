@@ -150,18 +150,6 @@ const handlers = {
     }
     state.operatorLastPressed = true;
   },
-  removeFormatting() {
-    inputDisplay.textContent = String(Number(inputDisplay.textContent.replace(/,/g, '')));
-  },
-  addFormat(value) {
-    if (inputDisplay.textContent.length >= 9) {
-      return String(Number(value.replace(/[,]/g, '')).toExponential(3)).replace(/\+/, '');
-    } else if (Number(value) > 999999999) {
-      return String(Number(value).toExponential(3)).replace(/\+/, '');
-    } else {
-      return String(Number(value.replace(/,/g, '')).toLocaleString());
-    }
-  },
   format(value) {
     if (value.includes(',') && value.replace(/,/g, '').length >= 9) {
       return String(Number(value.replace(/[,]/g, '')).toExponential(3)).replace(/\+/, '');
@@ -234,8 +222,9 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
     handlers.onOperatorPress(buttonPressed);
   }
 
+  handlers.format(inputDisplay.textContent);
   view.buttonAnimation(e.target)
   view.updateChromaticEffect();
 });
 
-export {state, handlers, view, shuntingYard, postfixCalculator}
+// export {state, handlers, view, shuntingYard, postfixCalculator}
