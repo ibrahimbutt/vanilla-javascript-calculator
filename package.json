@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
     "browser-sync": "^2.23.6",
     "chai": "*",
     "eslint": "^4.18.1",

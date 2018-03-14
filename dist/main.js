@@ -1,109 +1,13 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-// Operator Map for algorithms
-var operatorMap = {
-  '^': {
-    value: 3,
-    association: 'right',
-    operate: function operate(leftOperand, rightOperand) {
-      return Math.pow(leftOperand, rightOperand);
-    }
-  },
-  '×': {
-    value: 3,
-    association: 'left',
-    operate: function operate(leftOperand, rightOperand) {
-      return leftOperand * rightOperand;
-    }
-  },
-  '÷': {
-    value: 3,
-    association: 'left',
-    operate: function operate(leftOperand, rightOperand) {
-      return leftOperand / rightOperand;
-    }
-  },
-  '+': {
-    value: 2,
-    association: 'left',
-    operate: function operate(leftOperand, rightOperand) {
-      return Number(leftOperand) + Number(rightOperand);
-    }
-  },
-  '-': {
-    value: 2,
-    association: 'left',
-    operate: function operate(leftOperand, rightOperand) {
-      return leftOperand - rightOperand;
-    }
-  },
-  '(': {
-    value: 5
-  },
-  ')': {
-    value: 5
-  }
-};
+var _calculate = require('./calculate');
 
-var shuntingYard = function shuntingYard(userInput) {
-  var outputQueue = [];
-  var operatorStack = [];
+var _calculate2 = _interopRequireDefault(_calculate);
 
-  var isTopOfStackOperatorPrecedenceGreater = function isTopOfStackOperatorPrecedenceGreater(currentOperator) {
-    var value = operatorStack.length < 1 ? 0 : operatorMap[operatorStack[operatorStack.length - 1]].value;
-    return value > operatorMap[currentOperator].value;
-  };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  var isTopOfStackOperatorPrecedenceEqualAndSameAssociation = function isTopOfStackOperatorPrecedenceEqualAndSameAssociation(currentOperator) {
-    var value = operatorStack.length < 1 ? 0 : operatorMap[operatorStack[operatorStack.length - 1]].value;
-    return value === operatorMap[currentOperator].value && operatorMap[currentOperator].association === 'left';
-  };
-
-  var operatorAtTopOfStackIsNotLeftBracket = function operatorAtTopOfStackIsNotLeftBracket() {
-    return operatorStack[operatorStack.length - 1] !== '(';
-  };
-
-  userInput.forEach(function (token) {
-    if (Number(token)) {
-      outputQueue.push(token);
-    } else if (operatorMap.hasOwnProperty(token) && token !== ')' && token !== '(') {
-      while ((isTopOfStackOperatorPrecedenceGreater(token) || isTopOfStackOperatorPrecedenceEqualAndSameAssociation(token)) && operatorAtTopOfStackIsNotLeftBracket()) {
-        outputQueue.push(operatorStack.pop());
-      }
-      operatorStack.push(token);
-    } else if (token === '(') {
-      operatorStack.push(token);
-    } else if (token === ')') {
-      while (operatorAtTopOfStackIsNotLeftBracket()) {
-        outputQueue.push(operatorStack.pop());
-      }
-      operatorStack.pop();
-    }
-  });
-
-  operatorStack.forEach(function () {
-    outputQueue.push(operatorStack.pop());
-  });
-
-  return outputQueue;
-};
-
-var postfixCalculator = function postfixCalculator(outputQueue) {
-  var stack = [];
-  outputQueue.forEach(function (token) {
-    if (Number(token)) {
-      stack.push(token);
-    } else {
-      var rightOperand = stack.pop();
-      var leftOperand = stack.pop();
-      stack.push(operatorMap[token].operate(leftOperand, rightOperand));
-    }
-  });
-  return stack[0];
-};
+var thiss = ['1', '+', '2'];
+console.log(1123);
 
 var state = {
   store: [],
@@ -141,18 +45,6 @@ var handlers = {
       state.store.push(buttonPressed);
     }
     state.operatorLastPressed = true;
-  },
-  removeFormatting: function removeFormatting() {
-    inputDisplay.textContent = String(Number(inputDisplay.textContent.replace(/,/g, '')));
-  },
-  addFormat: function addFormat(value) {
-    if (inputDisplay.textContent.length >= 9) {
-      return String(Number(value.replace(/[,]/g, '')).toExponential(3)).replace(/\+/, '');
-    } else if (Number(value) > 999999999) {
-      return String(Number(value).toExponential(3)).replace(/\+/, '');
-    } else {
-      return String(Number(value.replace(/,/g, '')).toLocaleString());
-    }
   },
   format: function format(value) {
     if (value.includes(',') && value.replace(/,/g, '').length >= 9) {
@@ -220,12 +112,7 @@ document.getElementById('calculator__bottom').addEventListener('click', function
     handlers.onOperatorPress(buttonPressed);
   }
 
+  handlers.format(inputDisplay.textContent);
   view.buttonAnimation(e.target);
   view.updateChromaticEffect();
 });
-
-exports.state = state;
-exports.handlers = handlers;
-exports.view = view;
-exports.shuntingYard = shuntingYard;
-exports.postfixCalculator = postfixCalculator;
