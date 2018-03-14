@@ -5,50 +5,35 @@
   <meta charset="utf-8">
   <title>Mocha Tests</title>
   <link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">  -->
   <link rel="stylesheet" href="./assets/customstyles.css">
 </head>
 
 <body>
-  <div class="container">
-    <div class="calculator">
-      <div class="calculator__top" id="calculator__top">
-        <div class="history" id="history">
-        </div>
-        <div class="input" id="input">
-          0
-        </div>
-      </div>
-      <div class="calculator__bottom" id="calculator__bottom">
-        <button class="TC-not-digit"  value="clearAll">C</button>
-        <button class="TC-not-digit"  value="addMinus">&#177;</button>
-        <button class="TC-not-digit"  value="percent">%</button>
-        <button class="TC-not-digit"  value="divide">&#247;</button>
-
-        <button class="TC-is-digit" value="7">7</button>
-        <button class="TC-is-digit" value="8">8</button>
-        <button class="TC-is-digit" value="9">9</button>
-        <button class="TC-not-digit"  value="multiply">&#215</button>
-
-        <button class="TC-is-digit" value="4">4</button>
-        <button class="TC-is-digit" value="5">5</button>
-        <button class="TC-is-digit" value="6">6</button>
-        <button class="TC-not-digit"  value="subtract">&#8722;</button>
-
-        <button class="TC-is-digit" value="1">1</button>
-        <button class="TC-is-digit" value="2">2</button>
-        <button class="TC-is-digit" value="3">3</button>
-        <button class="TC-not-digit" value="add">+</button>
-
-        <button class="TC-is-decimal-point" value="decimal">.</button>
-        <button value="0">0</button>
-        <button value="00">00</button>
-        <button class="TC-not-digit"  value="getTotal">=</button>
-      </div>
+  <div class="calculator">
+    <div class="calculator__display" id="calculator__display" node-content="0">0</div>
+    <div class="calculator__bottom" id="calculator__bottom">
+      <div class="button" node-content="AC">AC</div>
+      <div class="button" node-content="+/-">+/-</div>
+      <div class="button" node-content="%">%</div>
+      <div class="button" node-content="÷">÷</div>
+      <div class="button" node-content="7">7</div>
+      <div class="button" node-content="8">8</div>
+      <div class="button" node-content="9">9</div>
+      <div class="button" node-content="×">×</div>
+      <div class="button" node-content="4">4</div>
+      <div class="button" node-content="5">5</div>
+      <div class="button" node-content="6">6</div>
+      <div class="button" node-content="-">-</div>
+      <div class="button" node-content="1">1</div>
+      <div class="button" node-content="2">2</div>
+      <div class="button" node-content="3">3</div>
+      <div class="button" node-content="+">+</div>
+      <div class="button" node-content="0">0</div>
+      <div class="button" node-content=".">.</div>
+      <div class="button" node-content="=">=</div>
     </div>
   </div>
   <script src="../dist/script.js"></script>
-  <script src="../dist/numeral.js"></script>
   
   <div id="mocha"></div>
   <script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>

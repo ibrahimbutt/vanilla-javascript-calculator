@@ -1,3 +1,5 @@
+// import { handlers } from "../src/js/script";
+
 /* global
 describe
 beforeEach
@@ -7,101 +9,108 @@ expect
 :true */
 /* eslint no-undef: "error" */
 
+const display = document.getElementById('calculator__display');
+const zero = document.querySelectorAll("[node-content='0']")[0];
+const one = document.querySelectorAll("[node-content='1']")[0];
+const two = document.querySelectorAll("[node-content='2']")[0];
+const decimal = document.querySelectorAll("[node-content='.']")[0];
+const ac = document.querySelectorAll("[node-content='AC']")[0];
+const plus = document.querySelectorAll("[node-content='+']")[0];
+const equal = document.querySelectorAll("[node-content='=']")[0];
 
-const input = document.getElementById('input');
-const history = document.getElementById('history');
-const decimalButton = document.querySelectorAll("[value='decimal']")[0];
-const addButton = document.querySelectorAll("[value='add']")[0];
-const subtractButton = document.querySelectorAll("[value='subtract']")[0];
-const digitZeroButton = document.querySelectorAll("[value='0']")[0];
-const digitDoubleZeroButton = document.querySelectorAll("[value='00']")[0];
-const digitOneButton = document.querySelectorAll("[value='1']")[0];
-const digitTwoButton = document.querySelectorAll("[value='2']")[0];
-const digitThreeButton = document.querySelectorAll("[value='3']")[0];
-
-describe('Edge Cases', () => {
+describe('Display Cases', () => {
   beforeEach(() => {
-    calculator.clearAll();
+    handlers.clearAll();
   });
 
-  it('Should display 0 as default on load.', () => {
-    expect(input.innerText).to.equal('0');
+  it('Should load with a 0.', () => {
+    expect(display.textContent).to.equal('0');
   });
 
-  it('Should remove leading 0 on user input.', () => {
-    digitOneButton.click();
-    expect(input.innerText).to.equal('1');
+  it('Should remove default 0 on a digit press.', () => {
+    one.click();
+    expect(display.textContent).to.equal('1');
   });
 
-  it('Should correctly evaluate 0 and 00 as a number on user input.', () => {
-    digitOneButton.click();
-    digitZeroButton.click();
-    digitDoubleZeroButton.click();
-    expect(input.innerText).to.equal('1000');
+  it('Should default to 0 on AC press.', () => {
+    one.click();
+    ac.click();
+    expect(display.textContent).to.equal('0');
   });
 
-  // it('Should correctly format commas.', () => {
-  //   digitOneButton.click();
-  //   digitZeroButton.click();
-  //   digitZeroButton.click();
-  //   digitZeroButton.click();
-  //   digitZeroButton.click();
-  //   digitZeroButton.click();
-  //   digitZeroButton.click();
-  //   expect(input.innerText).to.equal('1,000,000');
-  // });
-
-  it('Should reject adding a leading operator to history.', () => {
-    addButton.click();
-    expect(history.innerText).to.equal('');
+  it('Should keep default 0 if a decimal is the first input', () => {
+    decimal.click();
+    expect(display.textContent).to.equal('0.');
   });
 
-  it('Should remove previous operator, if another pressed right after.', () => {
-    digitOneButton.click();
-    subtractButton.click();
-    addButton.click();
-    expect(history.innerText).to.equal('1+');
+  it('Should reject multiple leading 0.', () => {
+    zero.click();
+    zero.click();
+    zero.click();
+    expect(display.textContent).to.equal('0');
   });
 
-  it('Should only add digits and decimals to input.', () => {
-    digitOneButton.click();
-    decimalButton.click();
-    expect(input.innerText).to.equal('1.');
+  it('Should only display new input, once an operator and new digit has been pressed.', () => {
+    one.click();
+    plus.click();
+    two.click();
+    expect(display.textContent).to.equal('2');
   });
 
-  it('Should reject decimal point as first user input.', () => {
-    decimalButton.click();
-    expect(input.innerText).to.equal('0');
-    expect(history.innerText).to.equal('');
+  it('Should display numbers bigger than 9.99M in scientific notation.', () => {
+    for (let i = 0; i < 10; i++) {
+      one.click();
+    }
+    expect(display.textContent).to.equal('1.111e9');
   });
 
-  it('Should reject adding more than one decimal point.', () => {
-    digitOneButton.click();
-    decimalButton.click();
-    digitTwoButton.click();
-    digitThreeButton.click();
-    decimalButton.click();
-    expect(input.innerText).to.equal('1.23');
-
-    view.clearAll();
-    digitOneButton.click();
-    decimalButton.click();
-    decimalButton.click();
-    expect(input.innerText).to.equal('1.');
+  it('Should add comma formating.', () => {
+    for (let i = 0; i < 4; i++) {
+      one.click();
+    }
+    expect(display.textContent).to.equal('1,111');
   });
-
-  it('Should remove trailing decimal from input, if next input value is an operator.', () => {
-    digitOneButton.click();
-    decimalButton.click();
-    addButton.click();
-    expect(history.innerText).to.equal('1+');
-  });
-
-  it('Should remove trailing decimal from history, if next input value is an operator.', () => {
-    view.clearAll();
-    digitOneButton.click();
-    decimalButton.click();
-    addButton.click();
-    expect(input.innerText).to.equal('1');
+  it('Should correctly reformat display with commas.', () => {
+    for (let i = 0; i < 5; i++) {
+      one.click();
+    }
+    expect(display.textContent).to.equal('11,111');
   });
 });
+
+describe('Valid Input', () => {
+  beforeEach(() => {
+    handlers.clearAll();
+  });
+
+  it('Should reject multiple decimal points.', () => {
+    one.click();
+    decimal.click();
+    decimal.click();
+    expect(display.textContent).to.equal('1.');
+  });
+});
+
+describe('Caclulations', () => {
+  beforeEach(() => {
+    handlers.clearAll();
+  });
+
+  it('Should add correctly', () => {
+    one.click();
+    plus.click();
+    one.click();
+    equal.click();
+    expect(display.textContent).to.equal('2');
+  });
+  it('Should calculate correctly, even with commas.', () => {
+    for (let i = 0; i < 4; i++) {
+      one.click();
+    }
+    plus.click();
+    one.click();
+    equal.click();
+    expect(display.textContent).to.equal('1,112');
+  });
+});
+

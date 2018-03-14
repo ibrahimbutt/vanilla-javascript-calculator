@@ -1,5 +1,8 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 // Operator Map for algorithms
 var operatorMap = {
   '^': {
@@ -139,6 +142,18 @@ var handlers = {
     }
     state.operatorLastPressed = true;
   },
+  removeFormatting: function removeFormatting() {
+    inputDisplay.textContent = String(Number(inputDisplay.textContent.replace(/,/g, '')));
+  },
+  addFormat: function addFormat(value) {
+    if (inputDisplay.textContent.length >= 9) {
+      return String(Number(value.replace(/[,]/g, '')).toExponential(3)).replace(/\+/, '');
+    } else if (Number(value) > 999999999) {
+      return String(Number(value).toExponential(3)).replace(/\+/, '');
+    } else {
+      return String(Number(value.replace(/,/g, '')).toLocaleString());
+    }
+  },
   format: function format(value) {
     if (value.includes(',') && value.replace(/,/g, '').length >= 9) {
       return String(Number(value.replace(/[,]/g, '')).toExponential(3)).replace(/\+/, '');
@@ -208,3 +223,9 @@ document.getElementById('calculator__bottom').addEventListener('click', function
   view.buttonAnimation(e.target);
   view.updateChromaticEffect();
 });
+
+exports.state = state;
+exports.handlers = handlers;
+exports.view = view;
+exports.shuntingYard = shuntingYard;
+exports.postfixCalculator = postfixCalculator;
