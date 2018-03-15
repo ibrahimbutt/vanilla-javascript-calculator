@@ -1,4 +1,5 @@
 node_modules
 .gitattributes
 dist
+.cache
 function-ideas.txt
