@@ -1,1 +1,4 @@
 node_modules
+.gitattributes
+dist
+function-ideas.txt

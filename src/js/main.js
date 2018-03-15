@@ -1,4 +1,13 @@
+import calculate from "./calculate";
+
+const state = {
+  operatorLastPressed: false
+};
+
 const handlers = {
+  clearAll() {
+    inputDisplay.innerText = 0;
+  },
   removeFormatting(input) {
     return input.includes('e') ?
       Number(input).toString() :
@@ -7,10 +16,50 @@ const handlers = {
   addFormatting(input) {
     return input.length > 9 ?
       Number(input).toExponential().toString() :
-      input.toLocaleString();
+      this.addCommas(input);
+  },
+  addCommas(input) {
+    let inlcudesDecimal = false;
+    const afterDecimalPortionOfValue = input
+      .split('')
+      .map((x) => {
+        if (x === '.') {
+          inlcudesDecimal = true;
+          return x;
+        } else if (inlcudesDecimal) {
+          return x;
+        }
+      })
+      .join('');
+
+    const valueWithCommas = input
+      // Remove portion after decimals
+      .replace(/\..*/, '')
+      .split('')
+      .reverse()
+      .map((x, i) => {
+        return (i % 3 === 0 ? x + ',' : x);
+      })
+      .reverse()
+      .join('')
+      // Remove extra comma
+      .slice(0, -1);
+
+    return valueWithCommas + afterDecimalPortionOfValue;
   },
   onDigitPress(input, buttonPressed) {
-    return input + buttonPressed;
+    if (
+      (input === '0' && buttonPressed !== '.') ||
+      state.operatorLastPressed
+    ) {
+      return buttonPressed;
+    } else if (input === '0' && buttonPressed === '.') {
+      return '0.'
+    } else {
+      return input + buttonPressed;
+    }
+
+    state.operatorLastPressed = false;
   }
 };
 
@@ -34,7 +83,6 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   let newInput;
 
   if (Number(buttonPressed) || buttonPressed === '.' || buttonPressed === '0') {
-    // handlers.onDigitPress(buttonPressed);
     newInput = handlers.onDigitPress(input, buttonPressed)
   }
   // else if (buttonPressed === '+/-') {
@@ -53,4 +101,5 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   inputDisplay.textContent = input;
   view.buttonAnimation(e.target)
   view.updateChromaticEffect();
+  console.log(input)
 });
