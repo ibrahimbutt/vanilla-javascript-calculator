@@ -2,6 +2,7 @@ import calculate from "./calculate";
 
 const state = {
   operatorLastPressed: false
+
 };
 
 const handlers = {
@@ -55,11 +56,20 @@ const handlers = {
       return buttonPressed;
     } else if (input === '0' && buttonPressed === '.') {
       return '0.'
+    } else if (buttonPressed === '.' && input.includes('.')) {
+      return false;
     } else {
       return input + buttonPressed;
     }
 
     state.operatorLastPressed = false;
+  },
+  onOperatorPress(input, buttonPressed) {
+
+    // if (state.operatorLastPressed) {
+
+    // }
+    state.operatorLastPressed = true;
   }
 };
 
@@ -97,9 +107,7 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   //   handlers.onOperatorPress(buttonPressed);
   // }
 
-  input = handlers.addFormatting(newInput);
-  inputDisplay.textContent = input;
+  inputDisplay.textContent = handlers.addFormatting(newInput);
   view.buttonAnimation(e.target)
   view.updateChromaticEffect();
-  console.log(input)
 });
