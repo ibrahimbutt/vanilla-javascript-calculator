@@ -78,10 +78,8 @@ const handlers = {
       const outputQueue = shuntingYard(userInput);
       state.store = [postfixCalculator(outputQueue)];
       state.store.push(buttonPressed);
-      console.log(typeof state.store[0])
-      const newInput = state.store[0];
       state.operatorLastPressed = true;
-      return newInput;
+      return state.store[0];
     }
   }
 };
@@ -103,11 +101,13 @@ const inputDisplay = document.getElementById('calculator__display');
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   // console.log(state.store);
   const buttonPressed = e.target.textContent;
-  let input = handlers.removeFormatting(inputDisplay.textContent);
+  let currentInput = inputDisplay.textContent.match(/[.e]/g) ?
+  handlers.removeFormatting(inputDisplay.textContent) :
+  inputDisplay.textContent;
   let newInput;
 
   if (Number(buttonPressed) || buttonPressed === '.' || buttonPressed === '0') {
-    newInput = handlers.onDigitPress(input, buttonPressed)
+    newInput = handlers.onDigitPress(currentInput, buttonPressed)
   }
   // else if (buttonPressed === '+/-') {
   //   handlers.onPlusMinusPress();
@@ -119,10 +119,10 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   //   handlers.calculateTotal();
   // }
   else {
-    newInput = handlers.onOperatorPress(input, buttonPressed);
+    newInput = handlers.onOperatorPress(currentInput, buttonPressed) || currentInput;
   }
   // console.log(newInput);
-
+console.log(state.store);
   inputDisplay.textContent = handlers.addFormatting(newInput);
   view.buttonAnimation(e.target)
   view.updateChromaticEffect();
