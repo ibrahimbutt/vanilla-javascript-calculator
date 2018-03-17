@@ -1,8 +1,8 @@
-import calculate from "./calculate";
+import {shuntingYard, postfixCalculator} from './calculate';
 
 const state = {
-  operatorLastPressed: false
-
+  operatorLastPressed: false,
+  store: []
 };
 
 const handlers = {
@@ -53,23 +53,36 @@ const handlers = {
       (input === '0' && buttonPressed !== '.') ||
       state.operatorLastPressed
     ) {
+      state.operatorLastPressed = false;
       return buttonPressed;
     } else if (input === '0' && buttonPressed === '.') {
+      state.operatorLastPressed = false;
       return '0.'
     } else if (buttonPressed === '.' && input.includes('.')) {
       return false;
     } else {
+      state.operatorLastPressed = false;
       return input + buttonPressed;
     }
 
-    state.operatorLastPressed = false;
   },
   onOperatorPress(input, buttonPressed) {
-
-    // if (state.operatorLastPressed) {
-
-    // }
-    state.operatorLastPressed = true;
+    if (input === '0') {
+      return false;
+    } else if (state.operatorLastPressed) {
+      state.store.pop();
+      state.store.push(buttonPressed);
+    } else {
+      state.store.push(input);
+      const userInput = state.store;
+      const outputQueue = shuntingYard(userInput);
+      state.store = [postfixCalculator(outputQueue)];
+      state.store.push(buttonPressed);
+      console.log(typeof state.store[0])
+      const newInput = state.store[0];
+      state.operatorLastPressed = true;
+      return newInput;
+    }
   }
 };
 
@@ -88,6 +101,7 @@ const view = {
 const inputDisplay = document.getElementById('calculator__display');
 
 document.getElementById('calculator__bottom').addEventListener('click', (e) => {
+  // console.log(state.store);
   const buttonPressed = e.target.textContent;
   let input = handlers.removeFormatting(inputDisplay.textContent);
   let newInput;
@@ -103,9 +117,11 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   //   handlers.clearAll();
   // } else if (buttonPressed === '=') {
   //   handlers.calculateTotal();
-  // } else {
-  //   handlers.onOperatorPress(buttonPressed);
   // }
+  else {
+    newInput = handlers.onOperatorPress(input, buttonPressed);
+  }
+  // console.log(newInput);
 
   inputDisplay.textContent = handlers.addFormatting(newInput);
   view.buttonAnimation(e.target)

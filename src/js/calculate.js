@@ -24,7 +24,7 @@ const operatorMap = {
     value: 2,
     association: 'left',
     operate(leftOperand, rightOperand) {
-      return Number(leftOperand) + Number(rightOperand);
+      return (Number(leftOperand) + Number(rightOperand)).toString();
     }
   },
   '-': {
@@ -109,8 +109,8 @@ const postfixCalculator = (outputQueue) => {
   return stack[0];
 };
 
-const calculate = (userInput) => {
-  return postfixCalculator(shuntingYard(userInput))
-};
+// const calculate = (userInput) => {
+//   return postfixCalculator(shuntingYard(userInput))
+// };
 
-export default calculate;
+export {shuntingYard, postfixCalculator};
