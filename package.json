@@ -6,8 +6,8 @@
   "author": "Ibrahim Butt <ibrahimbutt1993@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/pug/index.pug --open",
-    "build": "parcel build src/pug/index.pug --public-url ./"
+    "start": "parcel src/pug/index.pug --open -d dev",
+    "build": "parcel build src/pug/index.pug --public-url ./ -d dist"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
