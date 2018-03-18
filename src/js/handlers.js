@@ -13,27 +13,33 @@ const handlers = {
       input.replace(/,/g, '');
   },
   addFormatting(input) {
-    return input.length > 9 ?
+    return input > 999999999 ?
       Number(input).toExponential(2).toString() :
       this.addCommas(input);
   },
   addCommas(input) {
     let inlcudesDecimal = false;
-    let afterDecimalPortionOfValue = input
-      .split('')
-      .map((x) => {
-        if (x === '.') {
-          inlcudesDecimal = true;
-          return x;
-        } else if (inlcudesDecimal) {
-          return x;
-        }
-      })
-      .join('');
-      if (afterDecimalPortionOfValue.includes('.')) {
-        afterDecimalPortionOfValue = Number(afterDecimalPortionOfValue).toFixed(2).toString().replace(/^0/, '');
-      }
-      
+    let afterDecimalPortionOfValue;
+    if (input.includes('.')) {
+      afterDecimalPortionOfValue = input
+        .split('')
+        .map((x) => {
+          if (x === '.') {
+            inlcudesDecimal = true;
+            return x;
+          } else if (inlcudesDecimal) {
+            return x;
+          }
+        })
+        .join('');
+
+      afterDecimalPortionOfValue = afterDecimalPortionOfValue === '.' ?
+        '.' :
+        Number(afterDecimalPortionOfValue).toFixed(
+          afterDecimalPortionOfValue.length > 2 ? 2 : 1
+        ).toString().replace(/^0/, '');
+    }
+
     const valueWithCommas = input
       // Remove portion after decimals
       .replace(/\..*/, '')
@@ -47,7 +53,7 @@ const handlers = {
       // Remove extra comma
       .slice(0, -1);
 
-    return valueWithCommas + afterDecimalPortionOfValue;
+    return valueWithCommas + (afterDecimalPortionOfValue || '')
   },
   onDigitPress(input, buttonPressed) {
     if (
@@ -57,6 +63,7 @@ const handlers = {
       state.operatorLastPressed = false;
       return buttonPressed;
     } else if (input === '0' && buttonPressed === '.') {
+      console.log(123)
       state.operatorLastPressed = false;
       return '0.'
     } else if (buttonPressed === '.' && input.includes('.')) {
