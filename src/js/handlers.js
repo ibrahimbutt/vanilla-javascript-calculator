@@ -4,6 +4,8 @@ import { shuntingYard, postfixCalculator } from './calculate';
 const handlers = {
   clearAll(inputDisplay) {
     inputDisplay.innerText = 0;
+    state.store = []
+    state.operatorLastPressed = false;
   },
   removeFormatting(input) {
     return input.includes('e') ?
@@ -12,12 +14,12 @@ const handlers = {
   },
   addFormatting(input) {
     return input.length > 9 ?
-      Number(input).toExponential().toString() :
+      Number(input).toExponential(2).toString() :
       this.addCommas(input);
   },
   addCommas(input) {
     let inlcudesDecimal = false;
-    const afterDecimalPortionOfValue = input
+    let afterDecimalPortionOfValue = input
       .split('')
       .map((x) => {
         if (x === '.') {
@@ -28,7 +30,10 @@ const handlers = {
         }
       })
       .join('');
-
+      if (afterDecimalPortionOfValue.includes('.')) {
+        afterDecimalPortionOfValue = Number(afterDecimalPortionOfValue).toFixed(2).toString().replace(/^0/, '');
+      }
+      
     const valueWithCommas = input
       // Remove portion after decimals
       .replace(/\..*/, '')
@@ -78,10 +83,20 @@ const handlers = {
     }
   },
   onPlusMinusPress(input) {
-    console.log(typeof input, input)
-    input = input > 0 ? '-' + input : input.replace(/^-/, '');
-    console.log(typeof input, input)
-    return input;
+    return input > 0 ? '-' + input : input.replace(/^-/, '');
+  },
+  onPercentPress(input) {
+    return (input / 100).toString();
+  },
+  calculateTotal(input) {
+    state.store.push(input);
+    console.log(state.store)
+    const userInput = state.store;
+    const outputQueue = shuntingYard(userInput);
+    state.store = [postfixCalculator(outputQueue)];
+    state.operatorLastPressed = true;
+    console.log(state.store[0])
+    return state.store[0];
   }
 };
 

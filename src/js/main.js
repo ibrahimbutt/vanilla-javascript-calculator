@@ -16,13 +16,16 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
   else if (buttonPressed === '+/-') {
     newInput = handlers.onPlusMinusPress(currentInput);
   } 
-  // else if (buttonPressed === '%') {
-  //   handlers.onPercentPress();
-  // } else if (buttonPressed === 'AC') {
-  //   handlers.clearAll();
-  // } else if (buttonPressed === '=') {
-  //   handlers.calculateTotal();
-  // }
+  else if (buttonPressed === '%') {
+    newInput = handlers.onPercentPress(currentInput);
+  } 
+  else if (buttonPressed === 'AC') {
+    handlers.clearAll(inputDisplay);
+    newInput = '0';
+
+  } else if (buttonPressed === '=') {
+    newInput = handlers.calculateTotal(currentInput);
+  }
   else {
     newInput = handlers.onOperatorPress(currentInput, buttonPressed) || currentInput;
   }
