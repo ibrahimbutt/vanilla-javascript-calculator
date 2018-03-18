@@ -109,8 +109,4 @@ const postfixCalculator = (outputQueue) => {
   return stack[0].toString();
 };
 
-// const calculate = (userInput) => {
-//   return postfixCalculator(shuntingYard(userInput))
-// };
-
 export {shuntingYard, postfixCalculator};
