@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"/Users/ibrahim/GitHub/Vanilla-JavaScript-Calculator/package.json","includedInParent":true,"mtime":1521311862341}],"generated":{"js":"\"use strict\";Object.defineProperty(exports,\"__esModule\",{value:!0});var e={operatorLastPressed:!1,store:[]};exports.default=e;"},"hash":"ef867f5a026cb6123edcfed5770e5717","cacheData":{"env":{}}}
