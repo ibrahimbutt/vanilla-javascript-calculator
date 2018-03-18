@@ -101,7 +101,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],8:[function(require,module,exports) {
+},{}],4:[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -132,13 +132,13 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":9}],3:[function(require,module,exports) {
+},{"./bundle-url":9}],2:[function(require,module,exports) {
 
         var reloadCSS = require('_css_loader');
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":8}],10:[function(require,module,exports) {
+},{"_css_loader":4}],10:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -160,7 +160,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64604' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51361' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

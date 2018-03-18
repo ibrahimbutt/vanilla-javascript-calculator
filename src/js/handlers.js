@@ -101,7 +101,6 @@ const handlers = {
     const userInput = state.store;
     const outputQueue = shuntingYard(userInput);
     state.store = [postfixCalculator(outputQueue)];
-    state.operatorLastPressed = true;
     console.log(state.store[0])
     return state.store[0];
   }

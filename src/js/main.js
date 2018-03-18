@@ -24,7 +24,7 @@ document.getElementById('calculator__bottom').addEventListener('click', (e) => {
     newInput = '0';
 
   } else if (buttonPressed === '=') {
-    newInput = state.store[1] ? handlers.calculateTotal(currentInput) : currentInput;
+    newInput = handlers.calculateTotal(currentInput);
   }
   else {
     newInput = handlers.onOperatorPress(currentInput, buttonPressed) || currentInput;
